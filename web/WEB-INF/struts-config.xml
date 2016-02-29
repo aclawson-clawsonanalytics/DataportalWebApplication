@@ -7,7 +7,7 @@
 
 <struts-config>
     <form-beans>
-    
+        <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
     </form-beans>
     
     <global-exceptions>
@@ -19,6 +19,11 @@
     </global-forwards>
 
     <action-mappings>
+        <action name="LoginForm" path="/login" scope="request" type="com.myapp.struts.LoginAction" validate="false">
+            <forward name="login_success" path="/usermain.jsp"/>
+            <forward name="missing_login_fields" path="/login.jsp"/>
+        </action>
+        
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>
     </action-mappings>
     

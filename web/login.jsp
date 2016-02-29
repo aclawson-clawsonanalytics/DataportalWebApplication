@@ -12,6 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <title>Dataportal Login</title>
     </head>
     <body>
@@ -22,6 +23,11 @@
                 
                 <tbody>
                     <tr>
+                        <td colspan="2">
+                            <bean:write name="LoginForm" property="missingFieldsError" filter="false"/>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
                         <td>Enter your username: </td>
                         <td><html:text property="username" /></td>
                     </tr>
@@ -29,10 +35,7 @@
                         <td>Enter your password: </td>
                         <td><html:text property="password" /></td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    
                 </tbody>
             </table>
 
