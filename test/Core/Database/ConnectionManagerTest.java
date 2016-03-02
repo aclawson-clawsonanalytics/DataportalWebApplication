@@ -22,6 +22,7 @@ import org.junit.Assert;
 public class ConnectionManagerTest {
     public static ConnectionManager SUT;
     public static Settings settings;
+    
     public ConnectionManagerTest() {
     }
     

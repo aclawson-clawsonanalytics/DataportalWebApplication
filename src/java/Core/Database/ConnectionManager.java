@@ -34,6 +34,7 @@ public class ConnectionManager {
     
     public Connection GetConnection (){
         try {
+            //Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(host, userName, password);
         } catch (SQLException err){
             errorMessage = err.getMessage()+"\n";

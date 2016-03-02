@@ -40,25 +40,25 @@ public class SQLModelTest {
     // public void hello() {}
     @Test
     public void HasTableName(){
-        SUT.TableName = testTableName;
-        Assert.assertNotNull(SUT.TableName);
+        SUT.setTablename(testTableName);
+        Assert.assertNotNull(SUT.getTablename());
     }
     
     @Test
     public void EmptyErrorListReturnsValid(){
-        SUT.TableName = testTableName;
+        SUT.setTablename(testTableName);
         Assert.assertEquals(SUT.GetValidationErrors().isEmpty(), true);
     }
     
     @Test
     public void MissingTableNameReturnsMessage(){
-        SUT.TableName = null;
+        //SUT.setTablename(null) = null;
         Assert.assertEquals(SUT.GetValidationErrors().contains("Null table name."),true);
     }
     
     @Test
     public void MissingTableNameReturnsInvalid(){
-        SUT.TableName = null;
+        //SUT.TableName = null;
         Assert.assertEquals(SUT.IsValid(),false);
     }
     
