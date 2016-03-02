@@ -48,6 +48,13 @@ public class User extends SQLModel {
         return username;
     }
     
+    public String getPassword(){
+        return password;
+    }
+    
+    public void setPassword(String string){
+        this.password = string;
+    }
     
     public String getTablename(){
         return super.getTablename();

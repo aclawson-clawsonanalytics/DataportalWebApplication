@@ -72,7 +72,23 @@ public class UserTest {
     }
     
     @Test
+    public void CanSetPassword(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
+        Assert.assertEquals(SUT.getPassword(), sutPassword);
+    }
+    @Test
     public void TableNameIsCorrect(){
         Assert.assertEquals(SUT.getTablename(),"USERS");
+    }
+    
+    @Test
+    public void CanSaveNewUser(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
     }
 }
