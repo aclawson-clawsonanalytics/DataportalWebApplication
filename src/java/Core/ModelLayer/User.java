@@ -10,6 +10,9 @@ import Core.ModelLayer.IValidatable;
 import Core.Database.SQLModel;
 import Core.Database.ConnectionManager;
 import Core.Database.ISQLInterface;
+import Core.Database.ConnectionManager;
+import java.sql.SQLException;
+
 /**
  *
  * @author andrewclawson
@@ -25,6 +28,7 @@ public class User extends SQLModel {
     public User(){
         super.setTablename("USERS");
         super.SetID();
+        this.setStatus("Active");
         
     }
     public void setFirstName(String string){
@@ -59,12 +63,15 @@ public class User extends SQLModel {
         this.password = string;
     }
     
-    public String getTablename(){
-        return super.getTablename();
+    public void setStatus(String string){
+        this.status = string;
     }
     
-    public static User GetByID(int id){
-        
+    public String getStatus(){
+        return this.status;
+    }
+    public String getTablename(){
+        return super.getTablename();
     }
     
     @Override
@@ -87,9 +94,21 @@ public class User extends SQLModel {
             return false;
         }
     }
+    /*
     @Override
     public void Save(){
-        
+        try{
+            ConnectionManager manager = new ConnectionManager();
+            String insertString = "INSERT INTO Contact ";
+            String idString = "'" + Integer.toString(this.GetID()) + "',";
+            String firstString = "'"+ this.getFirstName() + "',";
+            String lastString = "'" + this.getLastName() + "',";
+            String usernameString = "'" + this.getUsername() + "',";
+            String statusString = "'" + this.getStatus() + "',";
+        } catch(SQLException e){
+            
+        }
     }
+*/
     
 }

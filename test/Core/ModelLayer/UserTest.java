@@ -12,7 +12,8 @@ import org.junit.Assert;
 import static org.junit.Assert.*;
 
 import Core.ModelLayer.User;
-
+import Core.Database.ConnectionManager;
+import java.sql.SQLException;
 /**
  *
  * @author andrewclawson
@@ -116,6 +117,18 @@ public class UserTest {
         Assert.assertFalse(SUT.IsValid());
     }
     
+    @Test
+    public void DefaultStatusIsActive(){
+        Assert.assertEquals(SUT.getStatus(),"Active");
+    }
+    
+    //@Test
+    public void CanGetUserByID(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
+    }
     
     //@Test
     public void CanSaveNewUser(){
@@ -124,7 +137,29 @@ public class UserTest {
         SUT.setLastName(sutLast);
         SUT.setUsername();
         SUT.setPassword(sutPassword);
-        int userCount;
+        int firstCount =0;
+        int secondCount = 0;
+        
+        try{
+            ConnectionManager manager = new ConnectionManager();
+            manager.statement = manager.connection.createStatement();
+            String sqlString = "SELECT * FROM " + SUT.getTablename();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                firstCount = firstCount + 1;
+            }
+            
+            SUT.Save();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                secondCount = secondCount + 1;
+            }
+            Assert.assertEquals(secondCount,firstCount+1);
+            
+        }catch (SQLException e){
+            
+        }
+        
         
     }
 }
