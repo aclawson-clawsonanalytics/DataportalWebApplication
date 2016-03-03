@@ -70,24 +70,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return ID;
     }
     
-    //@Override
-    public static ArrayList GetAll(){
-        ArrayList All = new ArrayList();
-        try{
-            ConnectionManager manager = new ConnectionManager();
-            String sqlString = "SELECT * FROM "+ tablename;
-            manager.resultSet = manager.statement.executeQuery(sqlString);
-            while (manager.resultSet.next()){
-                //All.add(manager.resultSet.)
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-            // Add more action here for exceptions.
-        }
-        
-        return null;
-    }
-    
+   
     
     @Override
     public void Save(){
@@ -98,6 +81,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
     public void Delete(){
         
     }
+    
     
     @Override
     public ArrayList<String> GetValidationErrors(){

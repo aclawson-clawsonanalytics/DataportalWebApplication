@@ -63,6 +63,10 @@ public class User extends SQLModel {
         return super.getTablename();
     }
     
+    public static User GetByID(int id){
+        
+    }
+    
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();
