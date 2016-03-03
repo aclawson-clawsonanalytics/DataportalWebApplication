@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package Core.ModelLayer;
+import java.util.List;
+import java.util.ArrayList;
 import Core.ModelLayer.IValidatable;
 import Core.Database.SQLModel;
 import Core.Database.ConnectionManager;
@@ -17,7 +19,8 @@ public class User extends SQLModel {
     private String lastname;
     private String username;
     private String password;
-    private String loginStatus;
+    private String status;
+    private boolean isLoggedIn;
     
     public User(){
         super.setTablename("USERS");
@@ -60,6 +63,26 @@ public class User extends SQLModel {
         return super.getTablename();
     }
     
+    @Override
+    public ArrayList<String> GetValidationErrors(){
+        ArrayList<String> validationErrors = new ArrayList();
+        if (firstname == null || firstname.equals("")){
+            validationErrors.add("User must have first name.");
+        }
+        if (lastname == null || lastname.equals("")){
+            validationErrors.add("User nust have last name.");
+        }
+        return validationErrors;
+    }
+    
+    @Override
+    public boolean IsValid(){
+        if (!GetValidationErrors().isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
+    }
     @Override
     public void Save(){
         

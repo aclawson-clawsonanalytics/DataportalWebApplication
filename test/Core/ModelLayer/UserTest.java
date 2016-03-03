@@ -85,10 +85,46 @@ public class UserTest {
     }
     
     @Test
+    public void MissingFirstReturnsMessage(){
+        //SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        //SUT.setUsername();
+        SUT.setPassword(sutPassword);
+        Assert.assertTrue(SUT.GetValidationErrors().contains("User must have first name."));
+    }
+    
+    @Test
+    public void MissingFirstReturnsInvalid(){
+        SUT.setLastName(sutLast);
+        SUT.setPassword(sutPassword);
+        Assert.assertFalse(SUT.IsValid());
+    }
+    
+    @Test
+    public void MissingLastReturnsMessage(){
+        SUT.setLastName("");
+        SUT.setFirstName(sutFirst);
+        SUT.setPassword(sutPassword);
+        Assert.assertTrue(SUT.GetValidationErrors().contains("User nust have last name."));
+    }
+    
+    @Test
+    public void MissingLastReturnsInvalid(){
+        //SUT.setLastName("");
+        SUT.setFirstName(sutFirst);
+        SUT.setPassword(sutPassword);
+        Assert.assertFalse(SUT.IsValid());
+    }
+    
+    
+    //@Test
     public void CanSaveNewUser(){
+        SUT = new User();
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
         SUT.setUsername();
         SUT.setPassword(sutPassword);
+        int userCount;
+        
     }
 }

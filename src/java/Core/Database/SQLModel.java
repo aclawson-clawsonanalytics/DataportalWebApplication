@@ -26,7 +26,7 @@ import Core.ModelLayer.*;
  */
 public class SQLModel implements IValidatable, ISQLInterface {
     
-    private String tablename;
+    private static String tablename;
     private int ID;
     
     public SQLModel (){
@@ -70,10 +70,24 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return ID;
     }
     
-    @Override
-    public ArrayList GetAll(){
+    //@Override
+    public static ArrayList GetAll(){
+        ArrayList All = new ArrayList();
+        try{
+            ConnectionManager manager = new ConnectionManager();
+            String sqlString = "SELECT * FROM "+ tablename;
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                //All.add(manager.resultSet.)
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+            // Add more action here for exceptions.
+        }
+        
         return null;
     }
+    
     
     @Override
     public void Save(){

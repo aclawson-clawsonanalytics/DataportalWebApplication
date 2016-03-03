@@ -30,7 +30,7 @@ public interface ISQLInterface {
     void Delete();
     
     
-    abstract ArrayList GetAll();
+    //abstract ArrayList GetAll();
     
     
     
