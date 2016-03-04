@@ -21,7 +21,10 @@ import java.sql.SQLException;
 public class UserTest {
     public static String sutFirst = "testFirst";
     public static String sutLast = "testLast";
+    public static String sutEmail = "testEmail@gmail.com";
     public static String sutPassword = "testPassword";
+    public static String testDatabase = "USERS_TEST";
+    
     public static User SUT;
     
     public UserTest() {
@@ -44,6 +47,10 @@ public class UserTest {
     //
     // @Test
     // public void hello() {}
+    @Test
+    public void DefaultIDIsZero(){
+        Assert.assertEquals(SUT.getID(),0);
+    }
     @Test
     public void CanSetFirstName(){
         SUT.setFirstName(sutFirst);
@@ -72,6 +79,7 @@ public class UserTest {
         Assert.assertEquals(SUT.getUsername(),"ttestlast");
     }
     
+    
     @Test
     public void CanSetPassword(){
         SUT.setFirstName(sutFirst);
@@ -91,6 +99,7 @@ public class UserTest {
         SUT.setLastName(sutLast);
         //SUT.setUsername();
         SUT.setPassword(sutPassword);
+        SUT.setEmail(sutEmail);
         Assert.assertTrue(SUT.GetValidationErrors().contains("User must have first name."));
     }
     
@@ -98,6 +107,7 @@ public class UserTest {
     public void MissingFirstReturnsInvalid(){
         SUT.setLastName(sutLast);
         SUT.setPassword(sutPassword);
+        SUT.setEmail(sutEmail);
         Assert.assertFalse(SUT.IsValid());
     }
     
@@ -106,6 +116,7 @@ public class UserTest {
         SUT.setLastName("");
         SUT.setFirstName(sutFirst);
         SUT.setPassword(sutPassword);
+        SUT.setEmail(sutEmail);
         Assert.assertTrue(SUT.GetValidationErrors().contains("User nust have last name."));
     }
     
@@ -114,6 +125,7 @@ public class UserTest {
         //SUT.setLastName("");
         SUT.setFirstName(sutFirst);
         SUT.setPassword(sutPassword);
+        SUT.setEmail(sutEmail);
         Assert.assertFalse(SUT.IsValid());
     }
     
@@ -122,6 +134,14 @@ public class UserTest {
         Assert.assertEquals(SUT.getStatus(),"Active");
     }
     
+    @Test
+    public void EmptyEmailReturnsMessage(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail("");
+        Assert.assertTrue(SUT.GetValidationErrors().contains("User must have email."));
+    }
     //@Test
     public void CanGetUserByID(){
         SUT.setFirstName(sutFirst);
@@ -130,13 +150,15 @@ public class UserTest {
         SUT.setPassword(sutPassword);
     }
     
-    //@Test
+    @Test
     public void CanSaveNewUser(){
         SUT = new User();
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
         SUT.setUsername();
+        SUT.setEmail(sutEmail);
         SUT.setPassword(sutPassword);
+        SUT.setTablename(testDatabase);
         int firstCount =0;
         int secondCount = 0;
         
@@ -157,7 +179,8 @@ public class UserTest {
             Assert.assertEquals(secondCount,firstCount+1);
             
         }catch (SQLException e){
-            
+            e.printStackTrace();
+            // Add more exception handling actions here.
         }
         
         

@@ -21,14 +21,16 @@ public class User extends SQLModel {
     private String firstname;
     private String lastname;
     private String username;
+    private String email;
     private String password;
     private String status;
-    private boolean isLoggedIn;
+    private boolean isLoggedIn = false;
     
     public User(){
         super.setTablename("USERS");
-        super.SetID();
-        this.setStatus("Active");
+        super.setID(0);
+        
+        setStatus("Active");
         
     }
     public void setFirstName(String string){
@@ -55,6 +57,13 @@ public class User extends SQLModel {
         return username;
     }
     
+    public void setEmail(String string){
+        this.email = string;
+    }
+    
+    public String getEmail(){
+        return email;
+    }
     public String getPassword(){
         return password;
     }
@@ -70,9 +79,21 @@ public class User extends SQLModel {
     public String getStatus(){
         return this.status;
     }
+    
+    public void setLogin(boolean aBool){
+        this.isLoggedIn = aBool;
+    }
+    
+    public boolean getLoginStatus(){
+        return this.isLoggedIn;
+    }
+    
+    
     public String getTablename(){
         return super.getTablename();
     }
+    
+    
     
     @Override
     public ArrayList<String> GetValidationErrors(){
@@ -82,6 +103,9 @@ public class User extends SQLModel {
         }
         if (lastname == null || lastname.equals("")){
             validationErrors.add("User nust have last name.");
+        }
+        if (email == null || email.equals("")){
+            validationErrors.add("User must have email.");
         }
         return validationErrors;
     }
@@ -94,21 +118,33 @@ public class User extends SQLModel {
             return false;
         }
     }
-    /*
+    
     @Override
     public void Save(){
-        try{
-            ConnectionManager manager = new ConnectionManager();
-            String insertString = "INSERT INTO Contact ";
-            String idString = "'" + Integer.toString(this.GetID()) + "',";
-            String firstString = "'"+ this.getFirstName() + "',";
-            String lastString = "'" + this.getLastName() + "',";
-            String usernameString = "'" + this.getUsername() + "',";
-            String statusString = "'" + this.getStatus() + "',";
-        } catch(SQLException e){
+        if (this.getID() == 0){
             
+            String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
+                    + "VALUES(?,?,?,?,?,?,?);";
+            try {
+                ConnectionManager manager = new ConnectionManager();
+                manager.preparedStatement = manager.connection.prepareStatement(queryString);
+                manager.preparedStatement.setString(1, this.getFirstName());
+                manager.preparedStatement.setString(2, this.getLastName());
+                manager.preparedStatement.setString(3, this.getUsername());
+                manager.preparedStatement.setString(4, this.getEmail());
+                manager.preparedStatement.setString(5, this.getPassword());
+                manager.preparedStatement.setString(6, this.getStatus());
+                manager.preparedStatement.setBoolean(7, this.getLoginStatus());
+                manager.preparedStatement.execute();
+                manager.CloseResources();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Add more exception handling actions here.
+            }
         }
     }
-*/
+
+
     
 }

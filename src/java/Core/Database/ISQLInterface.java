@@ -17,7 +17,7 @@ public interface ISQLInterface {
     
     // SetID method
     // Sets the primary key for the SQLListItem
-    public void SetID();
+    public void SetIDBySQL();
     
     // Returns the Item's Primary Key
     int GetID();

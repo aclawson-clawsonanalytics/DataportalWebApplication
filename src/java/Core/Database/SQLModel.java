@@ -40,8 +40,16 @@ public class SQLModel implements IValidatable, ISQLInterface {
     public String getTablename(){
         return tablename;
     }
+    
+    public void setID(int id){
+        ID = id;
+    }
+    
+    public int getID(){
+        return this.ID;
+    }
     @Override
-    public void SetID(){
+    public void SetIDBySQL(){
         ConnectionManager manager = new ConnectionManager();
         ArrayList idList = new ArrayList();
         String sqlString = "SELECT id from " + tablename;
