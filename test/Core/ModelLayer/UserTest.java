@@ -103,6 +103,7 @@ public class UserTest {
     @Test
     public void MissingFirstReturnsMessage(){
         //SUT.setFirstName(sutFirst);
+        SUT.setFirstName("");
         SUT.setLastName(sutLast);
         //SUT.setUsername();
         SUT.setPassword(sutPassword);
@@ -112,6 +113,7 @@ public class UserTest {
     
     @Test
     public void MissingFirstReturnsInvalid(){
+        SUT.setFirstName("");
         SUT.setLastName(sutLast);
         SUT.setPassword(sutPassword);
         SUT.setEmail(sutEmail);
@@ -131,6 +133,7 @@ public class UserTest {
     public void MissingLastReturnsInvalid(){
         //SUT.setLastName("");
         SUT.setFirstName(sutFirst);
+        SUT.setLastName("");
         SUT.setPassword(sutPassword);
         SUT.setEmail(sutEmail);
         Assert.assertFalse(SUT.IsValid());
@@ -197,7 +200,42 @@ public class UserTest {
         
     }
     
-    public void SaveExistingUserKeepsCountStatic(){
+    @Test
+    public void CountEmptyDatabaseReturnsZero(){
+        int numberUsers = User.Count("TEST_MODE");
+        Assert.assertEquals(0,numberUsers);
         
+    }
+    
+    @Test
+    public void SaveIncreasesCountByOne(){
+        int numberUsers = User.Count("TEST_MODE");
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        Assert.assertEquals(User.Count("TEST_MODE"),numberUsers+1);
+    }
+    
+    //@Test - Working on this test on the cases where ID != 0.
+    public void SaveExistingUserKeepsCountStatic(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
+        int numberUsers = User.Count("TEST_MODE");
+        SUT.Save("TEST_MODE");
+        Assert.assertEquals(User.Count("TEST_MODE"),numberUsers);
+    }
+    
+    public void CanAuthenticateSavedUser(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        Assert.assertTrue(User.AuthenticateCredentials(sutEmail,sutPassword));
     }
 }

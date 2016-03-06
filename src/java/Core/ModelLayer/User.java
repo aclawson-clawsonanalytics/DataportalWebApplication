@@ -105,7 +105,7 @@ public class User extends SQLModel {
     
     @Override
     public boolean IsValid(){
-        if (!GetValidationErrors().isEmpty()){
+        if (GetValidationErrors().isEmpty()){
             return true;
         }else{
             return false;
@@ -115,7 +115,7 @@ public class User extends SQLModel {
     @Override
     public void Save(){
         if (this.getID() == 0){
-            if (IsValid()){
+            if (this.IsValid()){
                 String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                     + "VALUES(?,?,?,?,?,?,?);";
                 try {
@@ -127,7 +127,11 @@ public class User extends SQLModel {
                     manager.preparedStatement.setString(4, this.getEmail());
                     manager.preparedStatement.setString(5, this.getPassword());
                     manager.preparedStatement.setString(6, this.getStatus());
-                    manager.preparedStatement.setBoolean(7, this.getLoginStatus());
+                    if (this.getLoginStatus() == false){
+                        manager.preparedStatement.setInt(7, 0);
+                    }else{
+                        manager.preparedStatement.setInt(7,1);
+                    }
                     manager.preparedStatement.execute();
                     manager.CloseResources();
 
@@ -142,7 +146,7 @@ public class User extends SQLModel {
     @Override
     public void Save(String mode){
         if (this.getID() == 0){
-            if (IsValid()){
+            if (this.IsValid()){
                 String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                         + "VALUES(?,?,?,?,?,?,?);";
                 try {
@@ -154,7 +158,11 @@ public class User extends SQLModel {
                     manager.preparedStatement.setString(4, this.getEmail());
                     manager.preparedStatement.setString(5, this.getPassword());
                     manager.preparedStatement.setString(6, this.getStatus());
-                    manager.preparedStatement.setBoolean(7, this.getLoginStatus());
+                    if (this.getLoginStatus() == false){
+                        manager.preparedStatement.setInt(7, 0);
+                    }else{
+                        manager.preparedStatement.setInt(7, 1);
+                    }
                     manager.preparedStatement.execute();
                     manager.CloseResources();
 
@@ -163,7 +171,18 @@ public class User extends SQLModel {
                     // Add more exception handling actions here.
                 }
             }
+        } else{
+            // Add case for existing user
+            if (this.IsValid()){
+                //String queryString = "UPDATE USER set"
+            }
+            
         }
+    }
+    
+    public static boolean AuthenticateCredentials(String anEmail, String aPassword){
+        return false;
+        
     }
     
 }
