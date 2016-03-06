@@ -29,7 +29,7 @@ public class User extends SQLModel {
     public User(){
         super.setTablename("USERS");
         super.setID(0);
-        
+        setLogin(false);
         setStatus("Active");
         
     }
@@ -119,7 +119,32 @@ public class User extends SQLModel {
             String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                     + "VALUES(?,?,?,?,?,?,?);";
             try {
-                ConnectionManager manager = new ConnectionManager();
+                ConnectionManager manager = new ConnectionManager("PODUCTION");
+                manager.preparedStatement = manager.connection.prepareStatement(queryString);
+                manager.preparedStatement.setString(1, this.getFirstName());
+                manager.preparedStatement.setString(2, this.getLastName());
+                manager.preparedStatement.setString(3, this.getUsername());
+                manager.preparedStatement.setString(4, this.getEmail());
+                manager.preparedStatement.setString(5, this.getPassword());
+                manager.preparedStatement.setString(6, this.getStatus());
+                manager.preparedStatement.setBoolean(7, this.getLoginStatus());
+                manager.preparedStatement.execute();
+                manager.CloseResources();
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+                // Add more exception handling actions here.
+            }
+        }
+    }
+    @Override
+    public void Save(String mode){
+        if (this.getID() == 0){
+            
+            String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
+                    + "VALUES(?,?,?,?,?,?,?);";
+            try {
+                ConnectionManager manager = new ConnectionManager(mode);
                 manager.preparedStatement = manager.connection.prepareStatement(queryString);
                 manager.preparedStatement.setString(1, this.getFirstName());
                 manager.preparedStatement.setString(2, this.getLastName());

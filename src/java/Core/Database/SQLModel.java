@@ -51,8 +51,8 @@ public class SQLModel implements IValidatable, ISQLInterface {
     
     
     @Override
-    public void SetIDBySQL(){
-        ConnectionManager manager = new ConnectionManager();
+    public void SetIDBySQL(String mode){
+        ConnectionManager manager = new ConnectionManager(mode);
         ArrayList idList = new ArrayList();
         String sqlString = "SELECT id from " + tablename;
         try{
@@ -80,7 +80,6 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return ID;
     }
     
-   
     
     @Override
     public void Save(){
@@ -88,17 +87,36 @@ public class SQLModel implements IValidatable, ISQLInterface {
     }
     
     @Override
+    public void Save(String mode){
+        
+    }
+    @Override
     public void Delete(){
         
     }
     
-    
     public static int Count(){
+        int count = 0;
+        String sqlString = "SELECT * from " + getTablename();
+        try{
+            ConnectionManager manager = new ConnectionManager("PRODUCTION");
+            manager.statement = manager.connection.createStatement();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                count = count + 1;
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return count;
+    }
+    
+    public static int Count(String mode){
         int count = 0;
         String sqlString = "SELECT * from " + getTablename();
         
         try{
-            ConnectionManager manager = new ConnectionManager();
+            ConnectionManager manager = new ConnectionManager(mode);
             manager.statement = manager.connection.createStatement();
             manager.resultSet = manager.statement.executeQuery(sqlString);
             while (manager.resultSet.next()){
@@ -110,6 +128,18 @@ public class SQLModel implements IValidatable, ISQLInterface {
         }
         return count;
     }
+    
+    public static void ClearTestDatabase(){
+        ConnectionManager manager = new ConnectionManager("TEST_MODE");
+        String deleteString = "TRUNCATE TABLE " + getTablename();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(deleteString);
+            manager.preparedStatement.execute();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
     
     @Override
     public ArrayList<String> GetValidationErrors(){

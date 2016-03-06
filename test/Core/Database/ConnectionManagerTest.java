@@ -28,13 +28,13 @@ public class ConnectionManagerTest {
     
     @BeforeClass
     public static void setUpClass() {
-        SUT = new ConnectionManager();
+        SUT = new ConnectionManager("TEST_MODE");
         settings = new Settings();
     }
     
     @Test
-    public void ConnectionManagerHasCorrectHost(){
-        String expectedHost = settings.host;
+    public void ConnectionManagerHasCorrectTestHost(){
+        String expectedHost = settings.testHost;
         Assert.assertEquals(expectedHost,SUT.host);
     }
     

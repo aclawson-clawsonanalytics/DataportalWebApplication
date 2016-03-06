@@ -7,6 +7,7 @@ package Core.ModelLayer;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
 import static org.junit.Assert.*;
@@ -23,7 +24,7 @@ public class UserTest {
     public static String sutLast = "testLast";
     public static String sutEmail = "testEmail@gmail.com";
     public static String sutPassword = "testPassword";
-    public static String testTable = "USERS_TEST";
+    //public static String testTable = "USERS_TEST";
     
     public static User SUT;
     
@@ -35,7 +36,7 @@ public class UserTest {
     public static void setUpClass() {
         
         SUT = new User();
-        SUT.setTablename(testTable);
+        //SUT.setTablename(testTable);
         //SUT.setFirstName(sutFirst);
     }
     
@@ -48,6 +49,11 @@ public class UserTest {
     //
     // @Test
     // public void hello() {}
+    @After
+    public void tearDownDatabase(){
+        User.ClearTestDatabase();
+        
+    }
     @Test
     public void DefaultIDIsZero(){
         Assert.assertEquals(SUT.getID(),0);
@@ -91,7 +97,7 @@ public class UserTest {
     }
     @Test
     public void TableNameIsCorrect(){
-        Assert.assertEquals(SUT.getTablename(),testTable);
+        Assert.assertEquals(SUT.getTablename(),"USERS");
     }
     
     @Test
@@ -136,6 +142,10 @@ public class UserTest {
     }
     
     @Test
+    public void DefaultLoginIsFalse(){
+        Assert.assertFalse(SUT.getLoginStatus());
+    }
+    @Test
     public void EmptyEmailReturnsMessage(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
@@ -164,7 +174,7 @@ public class UserTest {
         int secondCount = 0;
         
         try{
-            ConnectionManager manager = new ConnectionManager();
+            ConnectionManager manager = new ConnectionManager("TEST_MODE");
             manager.statement = manager.connection.createStatement();
             String sqlString = "SELECT * FROM " + SUT.getTablename();
             manager.resultSet = manager.statement.executeQuery(sqlString);
@@ -172,7 +182,7 @@ public class UserTest {
                 firstCount = firstCount + 1;
             }
             
-            SUT.Save();
+            SUT.Save("TEST_MODE");
             manager.resultSet = manager.statement.executeQuery(sqlString);
             while (manager.resultSet.next()){
                 secondCount = secondCount + 1;
