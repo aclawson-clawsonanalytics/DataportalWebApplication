@@ -88,13 +88,6 @@ public class User extends SQLModel {
         return this.isLoggedIn;
     }
     
-    
-    public String getTablename(){
-        return super.getTablename();
-    }
-    
-    
-    
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();
@@ -144,6 +137,8 @@ public class User extends SQLModel {
             }
         }
     }
+    
+    
 
 
     

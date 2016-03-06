@@ -29,6 +29,7 @@ public class ConnectionManager {
     public String errorMessage = null;
     
     public ConnectionManager(){
+        
         connection = this.GetConnection();
     }
     

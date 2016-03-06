@@ -23,7 +23,7 @@ public class UserTest {
     public static String sutLast = "testLast";
     public static String sutEmail = "testEmail@gmail.com";
     public static String sutPassword = "testPassword";
-    public static String testDatabase = "USERS_TEST";
+    public static String testTable = "USERS_TEST";
     
     public static User SUT;
     
@@ -35,6 +35,7 @@ public class UserTest {
     public static void setUpClass() {
         
         SUT = new User();
+        SUT.setTablename(testTable);
         //SUT.setFirstName(sutFirst);
     }
     
@@ -90,7 +91,7 @@ public class UserTest {
     }
     @Test
     public void TableNameIsCorrect(){
-        Assert.assertEquals(SUT.getTablename(),"USERS");
+        Assert.assertEquals(SUT.getTablename(),testTable);
     }
     
     @Test
@@ -158,7 +159,7 @@ public class UserTest {
         SUT.setUsername();
         SUT.setEmail(sutEmail);
         SUT.setPassword(sutPassword);
-        SUT.setTablename(testDatabase);
+        //SUT.setTablename(test);
         int firstCount =0;
         int secondCount = 0;
         

@@ -11,6 +11,7 @@ package Core.Database;
  */
 public class Settings {
     public String host = "jdbc:mysql://localhost:3306/DSS_Dataportal";
+    public String testHost = "jdbc:mysql://localhost:3306/DSS_Dataportal_Test";
     public String username = "DSS_DB_Admin";
     public String password = "dssdbadmin";
 }

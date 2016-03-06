@@ -37,7 +37,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
         this.tablename = string;
     }
     
-    public String getTablename(){
+    public static String getTablename(){
         return tablename;
     }
     
@@ -48,6 +48,8 @@ public class SQLModel implements IValidatable, ISQLInterface {
     public int getID(){
         return this.ID;
     }
+    
+    
     @Override
     public void SetIDBySQL(){
         ConnectionManager manager = new ConnectionManager();
@@ -90,6 +92,24 @@ public class SQLModel implements IValidatable, ISQLInterface {
         
     }
     
+    
+    public static int Count(){
+        int count = 0;
+        String sqlString = "SELECT * from " + getTablename();
+        
+        try{
+            ConnectionManager manager = new ConnectionManager();
+            manager.statement = manager.connection.createStatement();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                count = count + 1;
+            }
+            
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return count;
+    }
     
     @Override
     public ArrayList<String> GetValidationErrors(){
