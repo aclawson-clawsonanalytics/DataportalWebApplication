@@ -9,11 +9,13 @@ import java.util.ArrayList;
 import Core.Database.SQLList;
 import java.sql.Array;
 import Core.Database.ISQLInterface;
+import Core.Database.ConnectionManager;
 /**
  *
  * @author andrewclawson
  */
-public class SQLList<T extends ISQLInterface> extends ArrayList {
+public class SQLList extends ArrayList {
+    private String tablename;
     public ArrayList Items;
     
     // Constructor method
@@ -22,7 +24,25 @@ public class SQLList<T extends ISQLInterface> extends ArrayList {
         
     }
     
-    public void Add(ISQLInterface aListItem){
+    public void setTablename(String string){
+        this.tablename = string;
+    }
+    
+    public String getTablename(){
+        return tablename;
+    }
+    
+    public void Add(SQLModel aListItem){
         
     }
+    
+    public void Delete(SQLModel aListItem){
+        
+    }
+    /*
+    public ArrayList All(String mode){
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sqlString = "SELECT * From " + this.getTablename();
+    }
+*/
 }

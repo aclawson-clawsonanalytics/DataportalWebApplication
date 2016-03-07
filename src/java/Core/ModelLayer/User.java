@@ -119,7 +119,7 @@ public class User extends SQLModel {
                 String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                     + "VALUES(?,?,?,?,?,?,?);";
                 try {
-                    ConnectionManager manager = new ConnectionManager("PODUCTION");
+                    ConnectionManager manager = new ConnectionManager("PRODUCTION");
                     manager.preparedStatement = manager.connection.prepareStatement(queryString);
                     manager.preparedStatement.setString(1, this.getFirstName());
                     manager.preparedStatement.setString(2, this.getLastName());
@@ -180,9 +180,5 @@ public class User extends SQLModel {
         }
     }
     
-    public static boolean AuthenticateCredentials(String anEmail, String aPassword){
-        return false;
-        
-    }
     
 }

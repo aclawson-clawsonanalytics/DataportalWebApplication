@@ -11,8 +11,9 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
 import static org.junit.Assert.*;
-
+import java.util.ArrayList;
 import Core.ModelLayer.User;
+import java.util.Collections;
 import Core.Database.ConnectionManager;
 import java.sql.SQLException;
 /**
@@ -229,6 +230,8 @@ public class UserTest {
         Assert.assertEquals(User.Count("TEST_MODE"),numberUsers);
     }
     
+    //@Test
+    /*
     public void CanAuthenticateSavedUser(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
@@ -238,4 +241,6 @@ public class UserTest {
         SUT.Save("TEST_MODE");
         Assert.assertTrue(User.AuthenticateCredentials(sutEmail,sutPassword));
     }
+*/
+    
 }
