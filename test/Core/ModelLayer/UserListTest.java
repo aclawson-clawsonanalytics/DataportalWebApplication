@@ -8,15 +8,17 @@ package Core.ModelLayer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Assert;
 import static org.junit.Assert.*;
 
 import Core.ModelLayer.UserList;
+//import junit.framework.Assert;
 /**
  *
  * @author andrewclawson
  */
 public class UserListTest {
-    
+    private UserList SUT = new UserList();
     public UserListTest() {
     }
     
@@ -36,6 +38,6 @@ public class UserListTest {
     // public void hello() {}
     @Test
     public void TablenameIsCorrect(){
-        
+        Assert.assertEquals(SUT.getTablename(), "USER");
     }
 }

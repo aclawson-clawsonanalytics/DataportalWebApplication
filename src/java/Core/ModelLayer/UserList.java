@@ -10,5 +10,19 @@ import Core.Database.SQLList;
  * @author andrewclawson
  */
 public class UserList extends SQLList{
+    private String tablename;
+    
+    public UserList(){
+        this.setTablename("USER");
+    }
+    
+    public void setTablename(String string){
+        this.tablename = string;
+    }
+    
+    public String getTablename(){
+        return tablename;
+    }
+    
     
 }
