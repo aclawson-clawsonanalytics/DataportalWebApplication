@@ -106,6 +106,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
             while (manager.resultSet.next()){
                 count = count + 1;
             }
+            manager.CloseResources();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -123,7 +124,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
             while (manager.resultSet.next()){
                 count = count + 1;
             }
-            
+            manager.CloseResources();
         } catch(SQLException e){
             e.printStackTrace();
         }
@@ -136,6 +137,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
         try{
             manager.preparedStatement = manager.connection.prepareStatement(deleteString);
             manager.preparedStatement.execute();
+            manager.CloseResources();
         }catch (SQLException e){
             e.printStackTrace();
         }

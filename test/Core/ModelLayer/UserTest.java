@@ -7,6 +7,8 @@ package Core.ModelLayer;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.Assert;
@@ -36,7 +38,7 @@ public class UserTest {
     @BeforeClass
     public static void setUpClass() {
         
-        SUT = new User();
+        //SUT = new User();
         //SUT.setTablename(testTable);
         //SUT.setFirstName(sutFirst);
     }
@@ -50,9 +52,14 @@ public class UserTest {
     //
     // @Test
     // public void hello() {}
+    @Before
+    public void setup(){
+        SUT = new User();
+    }
     @After
     public void tearDownDatabase(){
         User.ClearTestDatabase();
+        SUT = null;
         
     }
     @Test
@@ -208,7 +215,7 @@ public class UserTest {
         
     }
     
-    @Test
+    //@Test
     public void SaveIncreasesCountByOne(){
         int numberUsers = User.Count("TEST_MODE");
         SUT.setFirstName(sutFirst);
@@ -219,7 +226,7 @@ public class UserTest {
         Assert.assertEquals(User.Count("TEST_MODE"),numberUsers+1);
     }
     
-    //@Test - Working on this test on the cases where ID != 0.
+    @Test //- Working on this test on the cases where ID != 0.
     public void SaveExistingUserKeepsCountStatic(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
@@ -241,6 +248,33 @@ public class UserTest {
         SUT.Save("TEST_MODE");
         Assert.assertTrue(User.AuthenticateCredentials(sutEmail,sutPassword));
     }
-*/
+*/  @Test
+    public void CanRetreiveAllUsers(){
+        
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        
+        SUT.Save("TEST_MODE");
+        ArrayList<User> all = User.GetAll("TEST_MODE");
+        //Assert.assertEquals(all.size(), User.Count("TEST_MODE"));
+        Assert.assertFalse(all.isEmpty());
+    }
     
+    @Test
+    public void CanUpdateExistingUserFirstname(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setEmail(sutEmail);
+        SUT.setUsername();
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        String newFirst = "newSUTFirst";
+        SUT.setFirstName(newFirst);
+        SUT.Save("TEST_MODE");
+        Assert.assertEquals(sutEmail,sutEmail);
+        
+    }
 }

@@ -116,7 +116,7 @@ public class User extends SQLModel {
     public void Save(){
         if (this.getID() == 0){
             if (this.IsValid()){
-                String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
+                String queryString = "INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                     + "VALUES(?,?,?,?,?,?,?);";
                 try {
                     ConnectionManager manager = new ConnectionManager("PRODUCTION");
@@ -147,8 +147,9 @@ public class User extends SQLModel {
     public void Save(String mode){
         if (this.getID() == 0){
             if (this.IsValid()){
-                String queryString = " INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
-                        + "VALUES(?,?,?,?,?,?,?);";
+                super.SetIDBySQL("TEST_MODE");
+                String queryString = "INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
+                        + "VALUES(?,?,?,?,?,?,?)";
                 try {
                     ConnectionManager manager = new ConnectionManager(mode);
                     manager.preparedStatement = manager.connection.prepareStatement(queryString);
@@ -170,15 +171,71 @@ public class User extends SQLModel {
                     e.printStackTrace();
                     // Add more exception handling actions here.
                 }
-            }
+            } // Add response for invalid user
         } else{
             // Add case for existing user
             if (this.IsValid()){
-                //String queryString = "UPDATE USER set"
+                String sqlString = "UPDATE USERS SET firstname = ?,"
+                        + "lastname = ?, "
+                        + "username = ?, "
+                        + "email = ?, "
+                        + "password = ?, "
+                        + "status = ?, "
+                        + "isLoggedIn = ?"
+                        + " WHERE id = ?";
+                        
+                try{
+                    ConnectionManager manager = new ConnectionManager(mode);
+                    manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+                    manager.preparedStatement.setString(1,this.getFirstName());
+                    manager.preparedStatement.setString(2,this.getLastName());
+                    manager.preparedStatement.setString(3,this.getUsername());
+                    manager.preparedStatement.setString(4,this.getEmail());
+                    manager.preparedStatement.setString(5,this.getPassword());
+                    manager.preparedStatement.setString(6,this.getStatus());
+                    if (this.getLoginStatus() == false){
+                        manager.preparedStatement.setInt(7,0);
+                    }else{
+                        manager.preparedStatement.setInt(7, 1);
+                    }
+                    manager.preparedStatement.setInt(8, this.GetID());
+                    System.out.println(sqlString);
+                    manager.preparedStatement.executeUpdate();
+                    //System.out.println(sqlString);
+                    manager.CloseResources();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
             }
             
         }
     }
     
-    
+    public static ArrayList GetAll(String mode){
+        ArrayList<User> allUsers = new ArrayList();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sqlStatement = "SELECT * FROM " + User.getTablename();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sqlStatement);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            while(manager.resultSet.next()){
+               User newUser = new User();
+               newUser.setID(manager.resultSet.getInt("id"));
+               newUser.setFirstName(manager.resultSet.getString("firstname"));
+               newUser.setLastName(manager.resultSet.getString("lastname"));
+               newUser.setEmail(manager.resultSet.getString("email"));
+               newUser.setPassword(manager.resultSet.getString("password"));
+               newUser.setStatus(manager.resultSet.getString("status"));
+               if (manager.resultSet.getInt("isLoggedIn") == 0){
+                   newUser.setLogin(false);
+               } else{
+                   newUser.setLogin(true);
+               }
+               allUsers.add(newUser);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return allUsers;
+    }
 }

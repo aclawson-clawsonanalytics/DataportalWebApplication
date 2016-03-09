@@ -40,4 +40,6 @@ public class UserListTest {
     public void TablenameIsCorrect(){
         Assert.assertEquals(SUT.getTablename(), "USER");
     }
+    
+    
 }
