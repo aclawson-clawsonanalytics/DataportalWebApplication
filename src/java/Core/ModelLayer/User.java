@@ -238,4 +238,34 @@ public class User extends SQLModel {
         }
         return allUsers;
     }
+    
+    public static User GetByID(int id, String mode){
+        User user = new User();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sqlString = "SELECT * FROM " + User.getTablename() + " WHERE id = " + Integer.toString(id);
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+            //manager.preparedStatement.setInt(1,id);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            if (manager.resultSet.next()){
+                user.setID(manager.resultSet.getInt("id"));
+                user.setFirstName(manager.resultSet.getString("firstname"));
+                user.setLastName(manager.resultSet.getString("lastname"));
+                user.setUsername();
+                user.setEmail(manager.resultSet.getString("email"));
+                user.setPassword(manager.resultSet.getString("password"));
+                user.setStatus(manager.resultSet.getString("status"));
+                if (manager.resultSet.getInt("isLoggedIn") == 0) {
+                    user.setLogin(false);
+                } else {
+                    user.setLogin(true);
+                }
+                user.setID(manager.resultSet.getInt("id"));
+            }
+            //manager.preparedStatement.executeQuery());
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
 }

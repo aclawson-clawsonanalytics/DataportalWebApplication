@@ -164,12 +164,18 @@ public class UserTest {
         SUT.setEmail("");
         Assert.assertTrue(SUT.GetValidationErrors().contains("User must have email."));
     }
-    //@Test
+    
+    @Test
     public void CanGetUserByID(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
         SUT.setUsername();
+        SUT.setEmail(sutEmail);
         SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        User retreivedSUT = new User();
+        retreivedSUT = User.GetByID(SUT.getID(), "TEST_MODE");
+        Assert.assertEquals(SUT.getID(),retreivedSUT.getID());
     }
     
     @Test
@@ -263,7 +269,8 @@ public class UserTest {
         Assert.assertFalse(all.isEmpty());
     }
     
-    @Test
+    
+    //@Test
     public void CanUpdateExistingUserFirstname(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
