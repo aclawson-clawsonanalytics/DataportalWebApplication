@@ -211,6 +211,44 @@ public class User extends SQLModel {
         }
     }
     
+    public void Update(String mode){
+        if (this.getID() != 0){
+            if (this.IsValid()){
+                String sqlString = "UPDATE USERS SET firstname = ?,"
+                        + "lastname = ?, "
+                        + "username = ?, "
+                        + "email = ?, "
+                        + "password = ?, "
+                        + "status = ?, "
+                        + "isLoggedIn = ?"
+                        + " WHERE id = ?";
+                        
+                try{
+                    ConnectionManager manager = new ConnectionManager(mode);
+                    manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+                    manager.preparedStatement.setString(1,this.getFirstName());
+                    manager.preparedStatement.setString(2,this.getLastName());
+                    manager.preparedStatement.setString(3,this.getUsername());
+                    manager.preparedStatement.setString(4,this.getEmail());
+                    manager.preparedStatement.setString(5,this.getPassword());
+                    manager.preparedStatement.setString(6,this.getStatus());
+                    if (this.getLoginStatus() == false){
+                        manager.preparedStatement.setInt(7,0);
+                    }else{
+                        manager.preparedStatement.setInt(7, 1);
+                    }
+                    manager.preparedStatement.setInt(8, this.GetID());
+                    System.out.println(sqlString);
+                    manager.preparedStatement.executeUpdate();
+                    //System.out.println(sqlString);
+                    manager.CloseResources();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
     public static ArrayList GetAll(String mode){
         ArrayList<User> allUsers = new ArrayList();
         ConnectionManager manager = new ConnectionManager(mode);
@@ -268,4 +306,45 @@ public class User extends SQLModel {
         }
         return user;
     }
+    
+    public static User GetByLoginCredentials(String email, String password, String mode){
+        User user = null;
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sqlString = "SELECT * FROM " + User.getTablename() + " WHERE email = ? AND password = ?";
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+            manager.preparedStatement.setString(1, email);
+            manager.preparedStatement.setString(2, password);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            if(manager.resultSet.next()){
+                user = new User();
+                user.setID(manager.resultSet.getInt("id"));
+                user.setFirstName(manager.resultSet.getString("firstname"));
+                user.setLastName(manager.resultSet.getString("lastname"));
+                user.setEmail(manager.resultSet.getString("email"));
+                user.setUsername();
+                user.setPassword(manager.resultSet.getString("password"));
+                user.setStatus(manager.resultSet.getString("status"));
+                if (manager.resultSet.getInt("isLoggedIn") == 0){
+                    user.setLogin(false);
+                }else{
+                    user.setLogin(true);
+                }
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public static boolean Authenticate(String email, String password, String mode){
+        //boolean authenticated = false;
+        if (User.GetByLoginCredentials(email, password, mode) == null){
+            return false;
+        } else{
+            return true;
+        }
+        
+    }
+    
 }

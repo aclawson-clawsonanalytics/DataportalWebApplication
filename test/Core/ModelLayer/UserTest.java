@@ -239,7 +239,7 @@ public class UserTest {
         SUT.setUsername();
         SUT.setPassword(sutPassword);
         int numberUsers = User.Count("TEST_MODE");
-        SUT.Save("TEST_MODE");
+        SUT.Update("TEST_MODE");
         Assert.assertEquals(User.Count("TEST_MODE"),numberUsers);
     }
     
@@ -270,7 +270,7 @@ public class UserTest {
     }
     
     
-    //@Test
+    @Test
     public void CanUpdateExistingUserFirstname(){
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
@@ -278,10 +278,132 @@ public class UserTest {
         SUT.setUsername();
         SUT.setPassword(sutPassword);
         SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
         String newFirst = "newSUTFirst";
         SUT.setFirstName(newFirst);
-        SUT.Save("TEST_MODE");
-        Assert.assertEquals(sutEmail,sutEmail);
+        SUT.Update("TEST_MODE");
+        SUT = null;
+        User newSUT = User.GetByID(sutID,"TEST_MODE");
+        Assert.assertEquals(newSUT.getFirstName(),newFirst);
         
     }
+    
+    @Test
+    public void CanUpdateExistingUserLastname(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
+        String newLast = "newSUTLast";
+        SUT.setLastName(newLast);
+        SUT.Update("TEST_MODE");
+        SUT = null;
+        User newSUT = User.GetByID(sutID, "TEST_MODE");
+        Assert.assertEquals(newSUT.getLastName(), newLast);
+    }
+    
+    @Test
+    public void CanUpdateExistingUserEmail(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
+        String newEmail = "newSUTEmail";
+        SUT.setEmail(newEmail);
+        SUT.Update("TEST_MODE");
+        SUT = null;
+        User newSUT = User.GetByID(sutID, "TEST_MODE");
+        Assert.assertEquals(newSUT.getEmail(),newEmail);
+    }
+    
+    @Test
+    public void CanUpdateExistingUserPassword(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
+        String newPassword = "newSUTPassword";
+        SUT.setPassword(newPassword);
+        SUT.Update("TEST_MODE");
+        SUT = null;
+        User newSUT = User.GetByID(sutID,"TEST_MODE");
+        Assert.assertEquals(newSUT.getPassword(),newPassword);
+    }
+    
+    @Test
+    public void CanUpdateExistingUserStatus(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
+        String newStatus = "Inactive";
+        SUT.setStatus(newStatus);
+        SUT.Update("TEST_MODE");
+        SUT = null;
+        User newSUT = User.GetByID(sutID,"TEST_MODE");
+        Assert.assertEquals(newSUT.getStatus(),newStatus);
+        
+    }
+    
+    @Test
+    public void CanGetUserByCredentials(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        int sutID = SUT.getID();
+        SUT = null;
+        User newSUT = User.GetByLoginCredentials(sutEmail, sutPassword, "TEST_MODE");
+        Assert.assertEquals(newSUT.getID(),sutID);
+    }
+    
+    @Test
+    public void BadCredentialsReturnsNull(){
+        User newSUT = User.GetByLoginCredentials("badEmail", "badPassword", "TEST_MODE");
+        Assert.assertNull(newSUT);
+    }
+    
+    @Test
+    public void CannotAuthenticateBadCredentials(){
+        String badEmail = "badEmail";
+        String badPassword = "badPassword";
+        Assert.assertFalse(User.Authenticate(badEmail, badPassword, "TEST_MODE"));
+    }
+    
+    @Test
+    public void CanAuthenticateGoodCredentials(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        Assert.assertTrue(User.Authenticate(SUT.getEmail(), SUT.getPassword(), "TEST_MODE"));
+    }
+    //@Test
+    /*
+    public void CanAuthenticateUser(){
+        SUT.setFirstName(sutFirst);
+        SUT.setLastName(sutLast);
+        SUT.setUsername();
+        SUT.setEmail(sutEmail);
+        SUT.setPassword(sutPassword);
+        SUT.Save("TEST_MODE");
+        Assert.assertTrue(User.Authenticate(SUT.getFirstName(),SUT.getLastName()));
+    }
+*/
 }
