@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="html" %>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 
 <!DOCTYPE html>
@@ -36,7 +36,9 @@
                 </tr>
                 <tr>
                     <td>
-                         
+                        <html:form action="/logout">
+                            <html:submit value="Logout"/>
+                        </html:form>
                     </td>
                     <td>
                         
