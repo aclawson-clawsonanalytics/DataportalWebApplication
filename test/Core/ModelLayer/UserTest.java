@@ -394,16 +394,9 @@ public class UserTest {
         SUT.Save("TEST_MODE");
         Assert.assertTrue(User.Authenticate(SUT.getEmail(), SUT.getPassword(), "TEST_MODE"));
     }
-    //@Test
-    /*
-    public void CanAuthenticateUser(){
-        SUT.setFirstName(sutFirst);
-        SUT.setLastName(sutLast);
-        SUT.setUsername();
-        SUT.setEmail(sutEmail);
-        SUT.setPassword(sutPassword);
-        SUT.Save("TEST_MODE");
-        Assert.assertTrue(User.Authenticate(SUT.getFirstName(),SUT.getLastName()));
-    }
-*/
+    
+    
+    
+    
+    
 }

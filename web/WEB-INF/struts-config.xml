@@ -7,7 +7,9 @@
 
 <struts-config>
     <form-beans>
-        <form-bean name="LoginForm" type="com.myapp.struts.LoginForm"/>
+        <form-bean name="LogoutForm" type="com.myapp.struts.Forms.LogoutForm"/>
+        <form-bean name="LoginForm" type="com.myapp.struts.Forms.LoginForm"/>
+        
     </form-beans>
     
     <global-exceptions>
@@ -19,13 +21,15 @@
     </global-forwards>
 
     <action-mappings>
-        <action name="LoginForm" path="/login" scope="request" type="com.myapp.struts.LoginAction" validate="false">
+        <action name="LoginForm" path="/login" scope="request" type="com.myapp.struts.Actions.LoginAction" validate="false">
             <forward name="login_success" path="/usermain.jsp"/>
             <forward name="missing_login_fields" path="/login.jsp"/>
             <forward name="cannot_authenticate" path="/login.jsp"/>
         </action>
+        <action name="LogoutForm" path="/logout" scope="request" type="com.myapp.struts.Actions.LogoutAction" validate="false"/>
         
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>
+        
     </action-mappings>
     
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

@@ -8,8 +8,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="html" %>
 
+
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns=:h="http://java.sun.com/jsf/html">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -25,12 +27,20 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td>Username: </td>
+                    <td>Email: </td>
                     <td><bean:write name="LoginForm" property="email" /></td>
                 </tr>
                 <tr>
                     <td>Status:</td>
                     <td></td>
+                </tr>
+                <tr>
+                    <td>
+                         
+                    </td>
+                    <td>
+                        
+                    </td>
                 </tr>
             </tbody>
         </table>

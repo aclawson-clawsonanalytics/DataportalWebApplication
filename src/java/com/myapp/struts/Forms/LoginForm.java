@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.myapp.struts;
+package com.myapp.struts.Forms;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,7 +68,11 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
             this.user = User.GetByLoginCredentials(email, password, "PRODUCTION");
             if (this.user != null){
                 //return user;
+            }else{
+                this.setAuthenticationError();
             }
+        }else{
+            this.setAuthenticationError();
         }
     }
     
