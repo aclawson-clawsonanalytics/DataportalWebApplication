@@ -24,12 +24,14 @@
                 <tbody>
                     <tr>
                         <td colspan="2">
+                            <bean:write name="LoginForm" property="authenticationError" filter="false"/>
+                            &nbsp;
                             <bean:write name="LoginForm" property="missingFieldsError" filter="false"/>
                             &nbsp;</td>
                     </tr>
                     <tr>
-                        <td>Enter your username: </td>
-                        <td><html:text property="username" /></td>
+                        <td>Enter your email: </td>
+                        <td><html:text property="email" /></td>
                     </tr>
                     <tr>
                         <td>Enter your password: </td>

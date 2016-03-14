@@ -42,8 +42,9 @@ public class ConnectionManager {
     public Connection GetConnection (){
         try {
             //Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(host, userName, password);
-        } catch (SQLException err){
+        } catch (SQLException  | ClassNotFoundException err){
             errorMessage = err.getMessage()+"\n";
             errorMessage = errorMessage + "Connection set to null value.";
             System.out.println(errorMessage);

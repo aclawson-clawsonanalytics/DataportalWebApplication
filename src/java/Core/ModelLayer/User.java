@@ -33,6 +33,10 @@ public class User extends SQLModel {
         setStatus("Active");
         
     }
+    
+    public static String getTablename(){
+        return "USERS";
+    }
     public void setFirstName(String string){
         this.firstname = string;
     }

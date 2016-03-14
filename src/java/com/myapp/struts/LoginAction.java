@@ -11,6 +11,10 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
+import Core.Database.ConnectionManager;
+import Core.ModelLayer.User;
+
+
 /**
  *
  * @author andrewclawson
@@ -20,6 +24,7 @@ public class LoginAction extends org.apache.struts.action.Action {
     /* forward name="success" path="" */
     private static final String LOGIN_SUCCESS = "login_success";
     private static final String MISSING_LOGIN_FIELDS = "missing_login_fields";
+    private static final String CANNOT_AUTHENTICATE = "cannot_authenticate";
 
     /**
      * This is the action called from the Struts framework.
@@ -35,17 +40,24 @@ public class LoginAction extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        
         LoginForm loginForm = (LoginForm) form;
-        String username = loginForm.getUsername();
+        String email = loginForm.getEmail();
         String password = loginForm.getPassword();
         
-        if (username == null ||
-                username.equals("") ||
+        if (email == null ||
+                email.equals("") ||
                 password == null ||
                 password.equals("")){
             loginForm.setMissingFieldsError();
             return mapping.findForward(MISSING_LOGIN_FIELDS);
         }
+        if (!User.Authenticate(email, password, "PRODUCTION")){
+            return mapping.findForward(CANNOT_AUTHENTICATE);
+        }else{
+            loginForm.setUser(email,password);
+        }
+        
         
         
         return mapping.findForward(LOGIN_SUCCESS);

@@ -33,8 +33,8 @@ public class SQLModel implements IValidatable, ISQLInterface {
  
     }
     
-    public void setTablename(String string){
-        this.tablename = string;
+    public static void setTablename(String string){
+        tablename = string;
     }
     
     public static String getTablename(){

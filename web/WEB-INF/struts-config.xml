@@ -22,6 +22,7 @@
         <action name="LoginForm" path="/login" scope="request" type="com.myapp.struts.LoginAction" validate="false">
             <forward name="login_success" path="/usermain.jsp"/>
             <forward name="missing_login_fields" path="/login.jsp"/>
+            <forward name="cannot_authenticate" path="/login.jsp"/>
         </action>
         
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>

@@ -11,28 +11,33 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import Core.ModelLayer.User;
+
 /**
  *
  * @author andrewclawson
  */
 public class LoginForm extends org.apache.struts.action.ActionForm {
     
-    private String username;
+    private String email;
     private String password;
+    //private String username;
     private String missingFieldsError;
+    private String authenticationError;
+    private User user;
 
     /**
      * @return
      */
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
     /**
      * @param string
      */
-    public void setUsername(String string) {
-        this.username = string;
+    public void setEmail(String string) {
+        this.email = string;
     }
     
     public String getPassword(){
@@ -49,6 +54,25 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
     public void setMissingFieldsError(){
         this.missingFieldsError = "<span style='color:red'>Missing either a username or password.</span>";
     }
+    
+    public void setAuthenticationError(){
+        this.authenticationError = "<span style='color:red'>Cannot authenticate user.</span>";
+    }
+    
+    public String getAuthenticationError(){
+        return authenticationError;
+    }
+    
+    public void setUser(String email, String password){
+        if(User.Authenticate(email, password, "PRODUCTION")){
+            this.user = User.GetByLoginCredentials(email, password, "PRODUCTION");
+            if (this.user != null){
+                //return user;
+            }
+        }
+    }
+    
+    
     /**
      * @return
      */
@@ -74,7 +98,7 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
      */
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-        if (getUsername() == null || getUsername().length() < 1) {
+        if (getEmail() == null || getEmail().length() < 1) {
             errors.add("name", new ActionMessage("error.name.required"));
             // TODO: add 'error.name.required' key to your resources
         }

@@ -26,10 +26,10 @@
                 </tr>
                 <tr>
                     <td>Username: </td>
-                    <td><bean:write name="LoginForm" property="username" /></td>
+                    <td><bean:write name="LoginForm" property="email" /></td>
                 </tr>
                 <tr>
-                    <td>Status: </td>
+                    <td>Status:</td>
                     <td></td>
                 </tr>
             </tbody>
