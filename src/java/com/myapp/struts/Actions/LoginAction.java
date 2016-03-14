@@ -54,6 +54,7 @@ public class LoginAction extends org.apache.struts.action.Action {
             return mapping.findForward(MISSING_LOGIN_FIELDS);
         }
         if (!User.Authenticate(email, password, "PRODUCTION")){
+            loginForm.setAuthenticationError();
             return mapping.findForward(CANNOT_AUTHENTICATE);
         }else{
             loginForm.setUser(email,password);

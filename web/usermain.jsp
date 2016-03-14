@@ -36,6 +36,13 @@
                 </tr>
                 <tr>
                     <td>
+                        <-- Place Button here for WJMain Menu-->
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
                         <html:form action="/logout">
                             <html:submit value="Logout"/>
                         </html:form>
