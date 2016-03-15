@@ -20,6 +20,11 @@ import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
 import Core.ModelLayer.IValidatable;
 import Core.ModelLayer.School;
+import static Core.ModelLayer.UserTest.SUT;
+import static Core.ModelLayer.UserTest.sutEmail;
+import static Core.ModelLayer.UserTest.sutFirst;
+import static Core.ModelLayer.UserTest.sutLast;
+import static Core.ModelLayer.UserTest.sutPassword;
 
 /**
  *
@@ -28,6 +33,7 @@ import Core.ModelLayer.School;
 public class SchoolTest {
     public static String sutName = "testName";
     public static School SUT;
+    public static String mode = "TEST_MODE";
     public SchoolTest() {
         
     }
@@ -110,5 +116,46 @@ public class SchoolTest {
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+    
+    @Test
+    public void SaveIncreasesCountByOne(){
+        int numberSchools = School.Count(mode);
+        SUT.setName(sutName);
+        SUT.Save(mode);
+        Assert.assertEquals(School.Count(mode), numberSchools+1);
+        
+    }
+    
+    @Test
+    public void UpdateKeepsCountStatic(){
+        SUT.setName(sutName);
+        int numberSchools = School.Count(mode);
+        SUT.Update(mode);
+        Assert.assertEquals(School.Count(mode), numberSchools);
+    }
+    
+    @Test
+    public void CanRetreiveAllSchools(){
+        
+        SUT.setName(sutName);
+        
+        SUT.Save("TEST_MODE");
+        ArrayList<School> all = School.GetAll("TEST_MODE");
+        //Assert.assertEquals(all.size(), User.Count("TEST_MODE"));
+        Assert.assertFalse(all.isEmpty());
+    }
+    
+    @Test
+    public void CanUpdateExistingSchoolName(){
+        SUT.setName(sutName);
+        SUT.Save(mode);
+        int id = SUT.getID();
+        String newName = "newSUTName";
+        SUT.setName(newName);
+        SUT.Update(mode);
+        SUT = null;
+        School newSUT = School.GetByID(id, mode);
+        Assert.assertEquals(newSUT.getName(), newName);
     }
 }

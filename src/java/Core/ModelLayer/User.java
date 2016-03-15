@@ -242,7 +242,7 @@ public class User extends SQLModel {
                         manager.preparedStatement.setInt(7, 1);
                     }
                     manager.preparedStatement.setInt(8, this.GetID());
-                    System.out.println(sqlString);
+                    //System.out.println(sqlString);
                     manager.preparedStatement.executeUpdate();
                     //System.out.println(sqlString);
                     manager.CloseResources();
