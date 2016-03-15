@@ -56,4 +56,9 @@ public class CampusTest {
         Campus.ClearTestDatabase();
         SUT = null;
     }
+    
+    @Test
+    public void TablenameIsCorrect(){
+        Assert.assertEquals(Campus.getTablename(),"CAMPUSES");
+    }
 }

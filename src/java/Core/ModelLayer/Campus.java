@@ -18,5 +18,21 @@ import java.sql.SQLException;
  * @author andrewclawson
  */
 public class Campus extends SQLModel {
+    private String name;
+    
+    public Campus(){
+        super.setTablename("CAMPUSES");
+        super.setID(0);
+    }
+    
+    public void setName(String string){
+        this.name = string;
+    }
+    
+    public String getName(){
+        return this.name;
+    }
+    
+    
     
 }
