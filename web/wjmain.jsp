@@ -11,9 +11,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <title>Woodcock Johnson III</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Denver Street School Dataportal</h1>
+        <h2>Woodcock Johnson III Assessment Analysis</h2>
     </body>
 </html>

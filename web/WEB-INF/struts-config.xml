@@ -7,6 +7,7 @@
 
 <struts-config>
     <form-beans>
+        <form-bean name="WoodcockJohnsonMainForm" type="com.myapp.struts.Forms.WoodcockJohnsonMainForm"/>
         <form-bean name="LogoutForm" type="com.myapp.struts.Forms.LogoutForm"/>
         <form-bean name="LoginForm" type="com.myapp.struts.Forms.LoginForm"/>
         
@@ -28,6 +29,9 @@
         </action>
         <action name="LogoutForm" path="/logout" scope="request" type="com.myapp.struts.Actions.LogoutAction" validate="false">
             <forward name="logout" path="/login.jsp"/>
+        </action>
+        <action input="/" name="WoodcockJohnsonMainForm" path="/wjmain" scope="request" type="com.myapp.struts.Actions.WoodcockJohnsonMainAction" validate="false">
+            <forward name="display_wjmain" path="/wjmain.jsp"/>
         </action>
         
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>

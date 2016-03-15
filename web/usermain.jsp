@@ -36,7 +36,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <-- Place Button here for WJMain Menu-->
+                        <html:form action="/wjmain">
+                            <html:submit value="Woodcock Johnson Analysis"/>
+                        </html:form>
                     </td>
                     <td></td>
                     <td></td>
