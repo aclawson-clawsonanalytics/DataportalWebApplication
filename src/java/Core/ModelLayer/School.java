@@ -42,4 +42,34 @@ public class School extends SQLModel {
         return validationErrors;
     }
     
+    @Override
+    public void Save(String mode){
+        if (this.getID() == 0){
+            if (this.IsValid()){
+                String sqlString = "INSERT INTO SCHOOLS (name)"
+                        + "VALUES (?)";
+                try{
+                    ConnectionManager manager = new ConnectionManager(mode);
+                    manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+                    manager.preparedStatement.setString(1, this.getName());
+                    manager.preparedStatement.execute();
+                    manager.CloseResources();
+                } catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    
+    public void Update(String mode){
+        
+    }
+    
+    public static ArrayList<School> GetAll(String mode){
+        ArrayList<School> allSchools = new ArrayList<School>();
+        
+        return allSchools;
+    }
+    
 }

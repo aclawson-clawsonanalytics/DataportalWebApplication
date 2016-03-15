@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.sql.SQLException;
 import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
 import Core.ModelLayer.IValidatable;
@@ -81,4 +81,34 @@ public class SchoolTest {
         Assert.assertFalse(SUT.IsValid());
     }
     
+    @Test
+    public void CountEmptyDatabaseReturnsZero(){
+        int numberSchools = School.Count();
+        Assert.assertEquals(0, numberSchools);
+    }
+    
+    @Test
+    public void CanSaveNewSchool(){
+        SUT.setName(sutName);
+        int firstCount = 0;
+        int secondCount = 0;
+        
+        try{
+            ConnectionManager manager = new ConnectionManager("TEST_MODE");
+            manager.statement = manager.connection.createStatement();
+            String sqlString = "SELECT * FROM " + SUT.getTablename();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                firstCount = firstCount + 1;
+            }
+            SUT.Save("TEST_MODE");
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while (manager.resultSet.next()){
+                secondCount = secondCount + 1;
+            }
+            Assert.assertEquals(secondCount,firstCount + 1);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
