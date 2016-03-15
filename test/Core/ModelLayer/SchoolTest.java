@@ -20,11 +20,7 @@ import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
 import Core.ModelLayer.IValidatable;
 import Core.ModelLayer.School;
-import static Core.ModelLayer.UserTest.SUT;
-import static Core.ModelLayer.UserTest.sutEmail;
-import static Core.ModelLayer.UserTest.sutFirst;
-import static Core.ModelLayer.UserTest.sutLast;
-import static Core.ModelLayer.UserTest.sutPassword;
+
 
 /**
  *
