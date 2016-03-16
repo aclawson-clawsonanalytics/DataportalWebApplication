@@ -19,6 +19,7 @@ import java.sql.SQLException;
  */
 public class Campus extends SQLModel {
     private String name;
+    private int schoolID;
     
     public Campus(){
         super.setTablename("CAMPUS");
@@ -31,6 +32,24 @@ public class Campus extends SQLModel {
     
     public String getName(){
         return this.name;
+    }
+    
+    public void setSchool(int school_id){
+        this.schoolID = school_id;
+    }
+    
+    public int getSchoolID(){
+        return this.schoolID;
+    }
+    
+    @Override
+    public ArrayList<String> GetValidationErrors(){
+        ArrayList<String> validationErrors = new ArrayList<String>();
+        if(this.getName() == null || this.getName() == ""){
+            validationErrors.add("Campus must have a name.");
+        }
+        
+        return validationErrors;
     }
     
     

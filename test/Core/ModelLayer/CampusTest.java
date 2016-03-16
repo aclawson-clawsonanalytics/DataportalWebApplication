@@ -20,6 +20,7 @@ import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
 import Core.ModelLayer.IValidatable;
 import Core.ModelLayer.School;
+import Core.ModelLayer.Campus;
 
 /**
  *
@@ -35,6 +36,8 @@ public class CampusTest {
     
     @BeforeClass
     public static void setUpClass() {
+        Campus SUT = new Campus();
+        
     }
     
     @AfterClass
@@ -48,7 +51,7 @@ public class CampusTest {
     // public void hello() {}
     @Before
     public void setup(){
-        Campus SUT = new Campus();
+        SUT = new Campus();
     }
     
     @After
@@ -60,5 +63,32 @@ public class CampusTest {
     @Test
     public void TablenameIsCorrect(){
         Assert.assertEquals(Campus.getTablename(),"CAMPUS");
+    }
+    
+    @Test
+    public void DefaultIDIsZero(){
+        Assert.assertEquals(SUT.getID(), 0);
+    }
+    
+    @Test
+    public void CanSetName(){
+        SUT.setName(sutName);
+        Assert.assertEquals(SUT.getName(), sutName);
+    }
+    
+    @Test
+    public void MisingNameReturnsMessage(){
+        Assert.assertTrue(SUT.GetValidationErrors().contains("Campus must have a name."));
+    }
+    
+    @Test
+    public void MissingNameReturnsInvalid(){
+        Assert.assertFalse(SUT.IsValid());
+    }
+    
+    @Test
+    public void CountEmptyDatabaseReturnsZero(){
+        int numberCampuses = Campus.Count("TEST_MODE");
+        Assert.assertEquals(0, numberCampuses);
     }
 }
