@@ -60,7 +60,7 @@ public class SchoolTest {
     // public void hello() {}
     @Test
     public void DefaultTablenameIsCorrect(){
-        Assert.assertEquals(School.getTablename(),"SCHOOLS");
+        Assert.assertEquals(School.getTablename(),"SCHOOL");
     }
     @Test
     public void DefaultIDIsZero(){

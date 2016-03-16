@@ -21,7 +21,7 @@ public class Campus extends SQLModel {
     private String name;
     
     public Campus(){
-        super.setTablename("CAMPUSES");
+        super.setTablename("CAMPUS");
         super.setID(0);
     }
     

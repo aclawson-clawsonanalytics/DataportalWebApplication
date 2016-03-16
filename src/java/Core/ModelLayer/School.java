@@ -21,7 +21,7 @@ public class School extends SQLModel {
     private String name;
     
     public School(){
-        super.setTablename("SCHOOLS");
+        super.setTablename("SCHOOL");
         super.setID(0);
     }
     
@@ -47,7 +47,7 @@ public class School extends SQLModel {
         if (this.getID() == 0){
             if (this.IsValid()){
                 super.SetIDBySQL("TEST_MODE");
-                String sqlString = "INSERT INTO SCHOOLS (name)"
+                String sqlString = "INSERT INTO SCHOOL (name)"
                         + "VALUES (?)";
                 try{
                     ConnectionManager manager = new ConnectionManager(mode);
@@ -66,7 +66,7 @@ public class School extends SQLModel {
     public void Update(String mode){
         if (this.getID() != 0){
             if (this.IsValid()){
-                String sqlString = "UPDATE SCHOOLS SET name = ? WHERE id = ?";
+                String sqlString = "UPDATE SCHOOL SET name = ? WHERE id = ?";
                 try{
                     ConnectionManager manager = new ConnectionManager(mode);
                     manager.preparedStatement = manager.connection.prepareStatement(sqlString);

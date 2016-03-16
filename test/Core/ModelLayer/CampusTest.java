@@ -59,6 +59,6 @@ public class CampusTest {
     
     @Test
     public void TablenameIsCorrect(){
-        Assert.assertEquals(Campus.getTablename(),"CAMPUSES");
+        Assert.assertEquals(Campus.getTablename(),"CAMPUS");
     }
 }
