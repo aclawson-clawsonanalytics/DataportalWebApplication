@@ -92,27 +92,27 @@ public class CampusTest {
         Assert.assertEquals(0, numberCampuses);
     }
     
-    @Test
+    //@Test
     public void CanSaveNewCampus(){
         
     }
     
-    @Test
+    //@Test
     public void SaveIncreasesCountByOne(){
         
     }
     
-    @Test
+    //@Test
     public void UpdateKeepsCountStatic(){
         
     }
     
-    @Test
+    //@Test
     public void CanRetreiveAllCampusesForSchool(){
         
     }
     
-    @Test
+    //@Test
     public void CanUpdateExistingCampusName(){
         
     }
