@@ -49,7 +49,7 @@ public class SchoolTest {
     
     @After
     public void tearDownDatabase(){
-        School.ClearTestDatabase();
+        School.ClearTestDatabase(School.getTablename());
         SUT = null;
     }
 
@@ -116,19 +116,19 @@ public class SchoolTest {
     
     @Test
     public void SaveIncreasesCountByOne(){
-        int numberSchools = School.Count(mode);
+        int numberSchools = School.Count(mode,School.getTablename());
         SUT.setName(sutName);
         SUT.Save(mode);
-        Assert.assertEquals(School.Count(mode), numberSchools+1);
+        Assert.assertEquals(School.Count(mode,School.getTablename()), numberSchools+1);
         
     }
     
     @Test
     public void UpdateKeepsCountStatic(){
         SUT.setName(sutName);
-        int numberSchools = School.Count(mode);
+        int numberSchools = School.Count(mode,School.getTablename());
         SUT.Update(mode);
-        Assert.assertEquals(School.Count(mode), numberSchools);
+        Assert.assertEquals(School.Count(mode,School.getTablename()), numberSchools);
     }
     
     @Test

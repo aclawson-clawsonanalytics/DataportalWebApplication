@@ -115,9 +115,9 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return count;
     }
     
-    public static int Count(String mode){
+    public static int Count(String mode, String aTablename){
         int count = 0;
-        String sqlString = "SELECT * from " + getTablename();
+        String sqlString = "SELECT * from " + aTablename;
         
         try{
             ConnectionManager manager = new ConnectionManager(mode);

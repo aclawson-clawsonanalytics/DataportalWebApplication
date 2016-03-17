@@ -216,20 +216,20 @@ public class UserTest {
     
     @Test
     public void CountEmptyDatabaseReturnsZero(){
-        int numberUsers = User.Count("TEST_MODE");
+        int numberUsers = User.Count("TEST_MODE",User.getTablename());
         Assert.assertEquals(0,numberUsers);
         
     }
     
     //@Test
     public void SaveIncreasesCountByOne(){
-        int numberUsers = User.Count("TEST_MODE");
+        int numberUsers = User.Count("TEST_MODE", User.getTablename());
         SUT.setFirstName(sutFirst);
         SUT.setLastName(sutLast);
         SUT.setUsername();
         SUT.setPassword(sutPassword);
         SUT.Save("TEST_MODE");
-        Assert.assertEquals(User.Count("TEST_MODE"),numberUsers+1);
+        Assert.assertEquals(User.Count("TEST_MODE",User.getTablename()),numberUsers+1);
     }
     
     @Test //- Working on this test on the cases where ID != 0.
@@ -238,9 +238,9 @@ public class UserTest {
         SUT.setLastName(sutLast);
         SUT.setUsername();
         SUT.setPassword(sutPassword);
-        int numberUsers = User.Count("TEST_MODE");
+        int numberUsers = User.Count("TEST_MODE", User.getTablename());
         SUT.Update("TEST_MODE");
-        Assert.assertEquals(User.Count("TEST_MODE"),numberUsers);
+        Assert.assertEquals(User.Count("TEST_MODE",User.getTablename()),numberUsers);
     }
     
     //@Test

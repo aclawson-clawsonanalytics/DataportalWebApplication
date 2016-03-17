@@ -18,13 +18,20 @@ import java.sql.SQLException;
  * @author andrewclawson
  */
 public class School extends SQLModel {
+    private static String tablename;
     private String name;
     
     public School(){
-        super.setTablename("SCHOOL");
+        setTablename("SCHOOL");
         super.setID(0);
     }
+    public static void setTablename(String string){
+        tablename = string;
+    }
     
+    public static String getTablename(){
+        return tablename;
+    }
     public void setName(String string){
         this.name = string;
     }
@@ -46,7 +53,7 @@ public class School extends SQLModel {
     public void Save(String mode){
         if (this.getID() == 0){
             if (this.IsValid()){
-                super.SetIDBySQL("TEST_MODE");
+                super.SetIDBySQL("TEST_MODE",School.getTablename());
                 String sqlString = "INSERT INTO SCHOOL (name)"
                         + "VALUES (?)";
                 try{
