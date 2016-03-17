@@ -18,6 +18,7 @@ import java.sql.SQLException;
  * @author andrewclawson
  */
 public class User extends SQLModel {
+    private static String tablename;
     private String firstname;
     private String lastname;
     private String username;
@@ -27,15 +28,21 @@ public class User extends SQLModel {
     private boolean isLoggedIn = false;
     
     public User(){
-        super.setTablename("USERS");
+        setTablename("USERS");
         super.setID(0);
         setLogin(false);
         setStatus("Active");
         
     }
     
+    
     public static String getTablename(){
-        return "USERS";
+        return tablename;
+    }
+    
+    
+    public static void setTablename(String string){
+        tablename = string;
     }
     public void setFirstName(String string){
         this.firstname = string;
@@ -151,7 +158,7 @@ public class User extends SQLModel {
     public void Save(String mode){
         if (this.getID() == 0){
             if (this.IsValid()){
-                super.SetIDBySQL("TEST_MODE");
+                super.SetIDBySQL("TEST_MODE", User.getTablename());
                 String queryString = "INSERT INTO USERS (firstname,lastname,username,email,password,status,isLoggedIn)"
                         + "VALUES(?,?,?,?,?,?,?)";
                 try {

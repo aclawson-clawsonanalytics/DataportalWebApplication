@@ -58,7 +58,7 @@ public class UserTest {
     }
     @After
     public void tearDownDatabase(){
-        User.ClearTestDatabase();
+        User.ClearTestDatabase(User.getTablename());
         SUT = null;
         
     }

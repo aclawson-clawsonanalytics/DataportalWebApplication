@@ -26,8 +26,9 @@ import Core.ModelLayer.*;
  */
 public class SQLModel implements IValidatable, ISQLInterface {
     
-    private static String tablename;
+    //private static String tablename;
     private int ID;
+    private static String tablename;
     
     public SQLModel (){
  
@@ -40,6 +41,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
     public static String getTablename(){
         return tablename;
     }
+
     
     public void setID(int id){
         ID = id;
@@ -51,7 +53,7 @@ public class SQLModel implements IValidatable, ISQLInterface {
     
     
     @Override
-    public void SetIDBySQL(String mode){
+    public void SetIDBySQL(String mode, String tablename){
         ConnectionManager manager = new ConnectionManager(mode);
         ArrayList idList = new ArrayList();
         String sqlString = "SELECT id from " + tablename;
@@ -131,9 +133,9 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return count;
     }
     
-    public static void ClearTestDatabase(){
+    public static void ClearTestDatabase(String aTablename){
         ConnectionManager manager = new ConnectionManager("TEST_MODE");
-        String deleteString = "TRUNCATE TABLE " + getTablename();
+        String deleteString = "TRUNCATE TABLE " + aTablename;
         try{
             manager.preparedStatement = manager.connection.prepareStatement(deleteString);
             manager.preparedStatement.execute();
