@@ -18,12 +18,21 @@ import java.sql.SQLException;
  * @author andrewclawson
  */
 public class Campus extends SQLModel {
+    private static String tablename;
     private String name;
     private int schoolID;
     
     public Campus(){
-        super.setTablename("CAMPUS");
+        setTablename("CAMPUS");
         super.setID(0);
+    }
+    
+    public static void setTablename(String string){
+        tablename = string;
+    }
+    
+    public static String getTablename(){
+        return tablename;
     }
     
     public void setName(String string){

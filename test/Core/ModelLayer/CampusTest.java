@@ -56,7 +56,7 @@ public class CampusTest {
     
     @After
     public void teardownDatabase(){
-        Campus.ClearTestDatabase();
+        Campus.ClearTestDatabase(Campus.getTablename());
         SUT = null;
     }
     
@@ -88,7 +88,7 @@ public class CampusTest {
     
     @Test
     public void CountEmptyDatabaseReturnsZero(){
-        int numberCampuses = Campus.Count("TEST_MODE");
+        int numberCampuses = Campus.Count("TEST_MODE",Campus.getTablename());
         Assert.assertEquals(0, numberCampuses);
     }
 }
