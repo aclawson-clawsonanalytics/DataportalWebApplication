@@ -91,4 +91,32 @@ public class CampusTest {
         int numberCampuses = Campus.Count("TEST_MODE",Campus.getTablename());
         Assert.assertEquals(0, numberCampuses);
     }
+    
+    @Test
+    public void CanSaveNewCampus(){
+        
+    }
+    
+    @Test
+    public void SaveIncreasesCountByOne(){
+        
+    }
+    
+    @Test
+    public void UpdateKeepsCountStatic(){
+        
+    }
+    
+    @Test
+    public void CanRetreiveAllCampusesForSchool(){
+        
+    }
+    
+    @Test
+    public void CanUpdateExistingCampusName(){
+        
+    }
+    
+    
+    
 }
