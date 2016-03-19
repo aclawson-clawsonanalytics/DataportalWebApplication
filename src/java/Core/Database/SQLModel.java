@@ -133,6 +133,20 @@ public class SQLModel implements IValidatable, ISQLInterface {
         return count;
     }
     
+    public static void DeleteAllFromTestDatabase(String aTablename){
+        ConnectionManager manager = new ConnectionManager("TEST_MODE");
+        String deleteString = "DELETE FROM " + aTablename;
+        String autoCountString = "ALTER TABLE " + aTablename + " AUTO_INCREMENT = 1";
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(deleteString);
+            manager.preparedStatement.execute();
+            manager.statement = manager.connection.createStatement();
+            manager.statement.executeQuery(autoCountString);
+            manager.CloseResources();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public static void ClearTestDatabase(String aTablename){
         ConnectionManager manager = new ConnectionManager("TEST_MODE");
         String deleteString = "TRUNCATE TABLE " + aTablename;

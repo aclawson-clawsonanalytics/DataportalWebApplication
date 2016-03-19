@@ -49,7 +49,7 @@ public class SchoolTest {
     
     @After
     public void tearDownDatabase(){
-        School.ClearTestDatabase(School.getTablename());
+        School.DeleteAllFromTestDatabase(School.getTablename());
         SUT = null;
     }
 
@@ -85,7 +85,7 @@ public class SchoolTest {
     
     @Test
     public void CountEmptyDatabaseReturnsZero(){
-        int numberSchools = School.Count();
+        int numberSchools = School.Count(mode,School.getTablename());
         Assert.assertEquals(0, numberSchools);
     }
     
