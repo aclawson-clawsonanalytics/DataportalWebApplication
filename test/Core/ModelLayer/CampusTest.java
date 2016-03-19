@@ -30,6 +30,8 @@ public class CampusTest {
     public static String sutName = "testName";
     public static Campus SUT;
     public static String mode = "TEST_MODE";
+    public static School TestSchool;
+    public static String testSchoolName = "testSchoolName";
     
     public CampusTest() {
     }
@@ -37,6 +39,9 @@ public class CampusTest {
     @BeforeClass
     public static void setUpClass() {
         Campus SUT = new Campus();
+        TestSchool = new School();
+        TestSchool.setName(testSchoolName);
+        TestSchool.Save(mode);
         
     }
     
@@ -56,7 +61,7 @@ public class CampusTest {
     
     @After
     public void teardownDatabase(){
-        Campus.ClearTestDatabase(Campus.getTablename());
+        Campus.DeleteTestDatabase(Campus.getTablename());
         SUT = null;
     }
     
@@ -94,6 +99,8 @@ public class CampusTest {
     
     //@Test
     public void CanSaveNewCampus(){
+        SUT.setName(sutName);
+        SUT.setSchool(TestSchool.getID());
         
     }
     
