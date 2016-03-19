@@ -145,6 +145,21 @@ public class SQLModel implements IValidatable, ISQLInterface {
         }
     }
     
+    public static void DeleteTestDatabase(String aTablename){
+        ConnectionManager manager = new ConnectionManager("TEST_MODE");
+        String deleteString = "DELETE FROM " + aTablename;
+        String resetCountString = "ALTER TABLE " + aTablename + " AUTO_INCREMENT = 1";
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(deleteString);
+            manager.preparedStatement.execute();
+            manager.preparedStatement = manager.connection.prepareStatement(resetCountString);
+            manager.preparedStatement.execute();
+            manager.CloseResources();
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
     
     @Override
     public ArrayList<String> GetValidationErrors(){

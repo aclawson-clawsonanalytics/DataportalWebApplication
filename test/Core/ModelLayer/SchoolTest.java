@@ -49,7 +49,7 @@ public class SchoolTest {
     
     @After
     public void tearDownDatabase(){
-        School.ClearTestDatabase(School.getTablename());
+        School.DeleteTestDatabase(School.getTablename());
         SUT = null;
     }
 
