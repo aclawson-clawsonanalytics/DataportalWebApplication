@@ -28,6 +28,9 @@ public class StudentTest {
     public static String testCampusName = "testCampusName";
     public static Campus TestCampus;
     public static Student SUT;
+    public static String sutFirstname = "sutFirst";
+    public static String sutLastname = "sutLast";
+    public static String sutGender = "Male";
     public StudentTest() {
     }
     
@@ -71,73 +74,101 @@ public class StudentTest {
         Assert.assertEquals(Student.getTablename(),"STUDENT");
     }
     
-    //@Test
+    @Test
     public void DefaultIDIsZero(){
-        
+        Assert.assertEquals(SUT.getID(),0);
     }
     
-    //@Test
+    @Test
     public void CanSetFirstname(){
+        SUT.setFirstname(sutFirstname);
+        Assert.assertEquals(SUT.getFirstname(),sutFirstname);
         
     }
     
-    //@Test
+    @Test
     public void MissingFirstnameReturnsMessage(){
-        
+        try{
+            Assert.assertTrue(SUT.GetValidationErrors().contains("Student must have a firstname."));
+        }catch (NullPointerException e){
+            Assert.assertNull(SUT.getFirstname());
+        }
     }
     
-    //@Test
+    @Test
     public void MissingFirstnameReturnsInvalid(){
-        
+        try{
+            Assert.assertFalse(SUT.IsValid());
+        }catch(NullPointerException e){
+            Assert.assertNull(SUT.getFirstname());
+        }
     }
     
     
-    //@Test
-    
-    
-    //@
+    @Test
     public void CanSetLastname(){
-        
+        SUT.setLastname(sutLastname);
+        Assert.assertEquals(SUT.getLastname(), sutLastname);
     }
     
-    //@Test
+    @Test
     public void MissingLastnameReturnsMessage(){
-        
+        try{
+            Assert.assertTrue(SUT.GetValidationErrors().contains("Student must have a lastname."));
+        }catch(NullPointerException e){
+            Assert.assertNull(SUT.getLastname());
+        }
     }
     
-    //@Test
+    @Test
     public void MissingLastnameReturnsInvalid(){
-        
+        SUT.setFirstname(sutFirstname);
+        try{
+            Assert.assertFalse(SUT.IsValid());
+        }catch(NullPointerException e){
+            Assert.assertNull(SUT.getLastname());
+        }
     }
     
-    //@Test
+    @Test
     public void CanSetGender(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        Assert.assertEquals(SUT.getGender(),sutGender);
         
     }
     
-    //@Test
+    @Test
     public void MissingGenderReturnsMessage(){
-        
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender("");
+        Assert.assertTrue(SUT.GetValidationErrors().contains("Student is missing a gender."));
     }
     
-    //@Test
+    @Test
     public void MissingGenderReturnsInvalid(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender("");
+        Assert.assertFalse(SUT.IsValid());
         
     }
     
-    //@Test
+    @Test
     public void InvalidGenderReturnsMessage(){
+        SUT.setGender("sfkjsdflk");
+        Assert.assertTrue(SUT.GetValidationErrors().contains("Gender must be Male or Female."));
         
     }
     
-    //@Test
+    @Test
     public void InvalidGenderReturnsInvalid(){
-        
-    }
-    
-    //@Test
-    public void ValidGenderReturnsValid(){
-        
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender("sldfkjslkgj");
+        Assert.assertFalse(SUT.IsValid());
     }
     
     //@Test
