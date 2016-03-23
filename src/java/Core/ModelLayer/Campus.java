@@ -144,5 +144,28 @@ public class Campus extends SQLModel {
         return allCampuses;
     }
     
+    public ArrayList<Student> StudentSet(String mode){
+        ArrayList<Student> studentSet = new ArrayList<Student>();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sql = "SELECT * FROM " + Student.getTablename() + " WHERE id = " + this.getID();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sql);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            while(manager.resultSet.next()){
+                Student student = new Student();
+                student.setFirstname(manager.resultSet.getString("firstname"));
+                student.setLastname(manager.resultSet.getString("lastname"));
+                student.setGender(manager.resultSet.getString("gender"));
+                student.setGradeLevel(manager.resultSet.getInt("gradelevel"));
+                student.setCampus(manager.resultSet.getInt("campus_id"));
+                student.setID(manager.resultSet.getInt("id"));
+                studentSet.add(student);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return studentSet;
+    }
+    
     
 }

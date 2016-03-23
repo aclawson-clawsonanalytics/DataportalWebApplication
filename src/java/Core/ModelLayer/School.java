@@ -129,7 +129,21 @@ public class School extends SQLModel {
     
     public ArrayList<Campus> CampusSet(String mode){
         ArrayList<Campus> campusSet = new ArrayList<Campus>();
-        
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sql = "SELECT * FROM " + Campus.getTablename() + " WHERE school_id = " + this.getID();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sql);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            while(manager.resultSet.next()){
+                Campus campus = new Campus();
+                campus.setName(manager.resultSet.getString("name"));
+                campus.setSchool(manager.resultSet.getInt("school_id"));
+                campus.setID(manager.resultSet.getInt("id"));
+                campusSet.add(campus);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         return campusSet;
     }
     

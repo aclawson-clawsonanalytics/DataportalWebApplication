@@ -165,9 +165,8 @@ public class Student extends SQLModel {
         if (this.getGradelevel() < 9 || this.getGradelevel() > 12){
             validationErrors.add("Grade level must be between 9 and 12.");
         }
-        
-        
-        
         return validationErrors;
     }
+    
+    
 }
