@@ -210,5 +210,23 @@ public class StudentTest {
         Assert.assertEquals(SUT.getCampus(), TestCampus.getID());
     }
     
+    @Test
+    public void CountEmptyDatabaseReturnsZero(){
+        Assert.assertEquals(Student.Count(mode,Student.getTablename()),0);
+    }
+    
+    @Test
+    public void CanSaveNewStudent(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        SUT.setGradeLevel(sutGrade);
+        SUT.setCampus(TestCampus.getID());
+        int firstCount = Student.Count(mode,Student.getTablename());
+        SUT.Save(mode);
+        int secondCount = Student.Count(mode,Student.getTablename());
+        Assert.assertEquals(secondCount,firstCount+1);
+    }
+    
     
 }

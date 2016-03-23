@@ -5,7 +5,9 @@
  */
 package Core.ModelLayer;
 import java.util.ArrayList;
+import java.sql.SQLException;
 import Core.Database.SQLModel;
+import Core.Database.ConnectionManager;
 
 /**
  *
@@ -72,6 +74,31 @@ public class Student extends SQLModel {
         return this.campusID;
     }
     
+    @Override
+    public void Save(String mode){
+        if (this.getID() == 0){
+            if (this.IsValid()){
+                super.SetIDBySQL(mode, Student.getTablename());
+                String sqlString = "INSERT INTO " + Student.getTablename() + " (firstname,"
+                        + "lastname, gender, gradelevel, campus_id)"
+                        + " VALUES(?,?,?,?,?)";
+                ConnectionManager manager = new ConnectionManager(mode);
+                try{
+                    manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+                    manager.preparedStatement.setString(1,this.getFirstname());
+                    manager.preparedStatement.setString(2,this.getLastname());
+                    manager.preparedStatement.setString(3, this.getGender());
+                    manager.preparedStatement.setInt(4, this.getGradelevel());
+                    manager.preparedStatement.setInt(5, this.getCampus());
+                    manager.preparedStatement.execute();
+                    manager.CloseResources();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+                
+            }
+        }
+    }
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();
