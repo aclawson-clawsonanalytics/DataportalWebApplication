@@ -319,7 +319,7 @@ public class User extends SQLModel {
     }
     
     public static User GetByLoginCredentials(String email, String password, String mode){
-        User user = null;
+        User user = new User();
         ConnectionManager manager = new ConnectionManager(mode);
         String sqlString = "SELECT * FROM " + User.getTablename() + " WHERE email = ? AND password = ?";
         try{
@@ -328,7 +328,7 @@ public class User extends SQLModel {
             manager.preparedStatement.setString(2, password);
             manager.resultSet = manager.preparedStatement.executeQuery();
             if(manager.resultSet.next()){
-                user = new User();
+                //user = new User();
                 user.setID(manager.resultSet.getInt("id"));
                 user.setFirstName(manager.resultSet.getString("firstname"));
                 user.setLastName(manager.resultSet.getString("lastname"));

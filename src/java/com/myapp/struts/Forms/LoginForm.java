@@ -66,11 +66,6 @@ public class LoginForm extends org.apache.struts.action.ActionForm {
     public void setUser(String email, String password){
         if(User.Authenticate(email, password, "PRODUCTION")){
             this.user = User.GetByLoginCredentials(email, password, "PRODUCTION");
-            if (this.user != null){
-                //return user;
-            }else{
-                this.setAuthenticationError();
-            }
         }else{
             this.setAuthenticationError();
         }
