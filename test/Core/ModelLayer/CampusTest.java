@@ -173,8 +173,6 @@ public class CampusTest {
         SUT = null;
         Campus newCampus = Campus.GetByID(id, mode);
         Assert.assertEquals(newCampus.getName(),newSUTName);
-    }
-    
-    
+    }    
     
 }
