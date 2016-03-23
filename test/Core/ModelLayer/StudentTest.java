@@ -228,5 +228,82 @@ public class StudentTest {
         Assert.assertEquals(secondCount,firstCount+1);
     }
     
+    @Test
+    public void CanGetStudentByID(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        SUT.setGradeLevel(sutGrade);
+        SUT.setCampus(TestCampus.getID());
+        SUT.Save(mode);
+        int id = SUT.getID();
+        Student retrievedStudent = Student.GetByID(id, mode);
+        Assert.assertEquals(retrievedStudent.getFirstname(), sutFirstname);
+        Assert.assertEquals(retrievedStudent.getLastname(), sutLastname);
+        Assert.assertEquals(retrievedStudent.getID(), id);
+        Assert.assertEquals(retrievedStudent.getGender(),sutGender);
+        Assert.assertEquals(retrievedStudent.getGradelevel(),sutGrade);
+        Assert.assertEquals(retrievedStudent.getCampus(),TestCampus.getID());
+    }
+    
+    public void SetupValidStudent(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        SUT.setGradeLevel(sutGrade);
+        SUT.setCampus(TestCampus.getID());
+    }
+    @Test
+    public void CanUpdateFirstname(){
+        SetupValidStudent();
+        SUT.Save(mode);
+        int id = SUT.getID();
+        String newFirst = "newSUTFirst";
+        SUT.setFirstname(newFirst);
+        SUT.Update(mode);
+        SUT = null;
+        Student retrievedStudent = Student.GetByID(id, mode);
+        Assert.assertEquals(retrievedStudent.getFirstname(),newFirst);
+    }
+    
+    @Test
+    public void CanUpdateLastname(){
+        SetupValidStudent();
+        SUT.Save(mode);
+        int id = SUT.getID();
+        String newLast = "newSUTLast";
+        SUT.setLastname(newLast);
+        SUT.Update(mode);
+        SUT = null;
+        Student retrievedStudent = Student.GetByID(id, mode);
+        Assert.assertEquals(retrievedStudent.getLastname(), newLast);
+    }
+    
+    @Test
+    public void CanUpdateGender(){
+        SetupValidStudent();
+        SUT.Save(mode);
+        int id = SUT.getID();
+        String newGender = "Female";
+        SUT.setGender(newGender);
+        SUT.Update(mode);
+        SUT = null;
+        Student retrievedStudent = Student.GetByID(id, mode);
+        Assert.assertEquals(retrievedStudent.getGender(), newGender);
+    }
+    
+    @Test
+    public void CanUpdateGradeLevel(){
+        SetupValidStudent();
+        SUT.Save(mode);
+        int id = SUT.getID();
+        int newGrade = 10;
+        SUT.setGradeLevel(newGrade);
+        SUT.Update(mode);
+        SUT = null;
+        Student retrievedStudent = Student.GetByID(id, mode);
+        Assert.assertEquals(retrievedStudent.getGradelevel(),newGrade);
+    }
+    
     
 }

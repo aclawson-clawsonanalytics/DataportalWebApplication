@@ -99,6 +99,53 @@ public class Student extends SQLModel {
             }
         }
     }
+    
+    public void Update(String mode){
+        if (this.getID() != 0){
+            if (this.IsValid()){
+                String sql = "UPDATE " + Student.getTablename() + " set "
+                        + "firstname = ?, lastname = ?, gender = ?, gradelevel = ?, "
+                        + "campus_id=? WHERE id = ?";
+                ConnectionManager manager = new ConnectionManager(mode);
+                try{
+                    manager.preparedStatement = manager.connection.prepareStatement(sql);
+                    manager.preparedStatement.setString(1,this.getFirstname());
+                    manager.preparedStatement.setString(2, this.getLastname());
+                    manager.preparedStatement.setString(3, this.getGender());
+                    manager.preparedStatement.setInt(4, this.getGradelevel());
+                    manager.preparedStatement.setInt(5,this.getCampus());
+                    manager.preparedStatement.setInt(6, this.getID());
+                    manager.preparedStatement.executeUpdate();
+                    manager.CloseResources();
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+                
+            }
+        }
+    }
+    
+    public static Student GetByID(int id, String mode){
+        Student student = new Student();
+        String sql = "SELECT * FROM " + Student.getTablename() + " WHERE id = " + Integer.toString(id);
+        ConnectionManager manager = new ConnectionManager(mode);
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sql);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            if (manager.resultSet.next()){
+                student.setFirstname(manager.resultSet.getString("firstname"));
+                student.setLastname(manager.resultSet.getString("lastname"));
+                student.setGender(manager.resultSet.getString("gender"));
+                student.setGradeLevel(manager.resultSet.getInt("gradelevel"));
+                student.setCampus(manager.resultSet.getInt("campus_id"));
+                student.setID(manager.resultSet.getInt("id"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+            
+        }
+        return student;
+    }
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();

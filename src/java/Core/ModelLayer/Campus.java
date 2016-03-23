@@ -94,6 +94,7 @@ public class Campus extends SQLModel {
                 campus.setName(manager.resultSet.getString("name"));
                 campus.setSchool(manager.resultSet.getInt("school_id"));
             }
+            manager.CloseResources();
         }catch(SQLException e){
             e.printStackTrace();
         }
