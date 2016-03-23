@@ -341,6 +341,8 @@ public class User extends SQLModel {
                 }else{
                     user.setLogin(true);
                 }
+            }else{
+                return null;
             }
         }catch(SQLException e){
             e.printStackTrace();
