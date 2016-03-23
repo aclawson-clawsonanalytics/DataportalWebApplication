@@ -47,6 +47,7 @@ public class CampusTest {
     
     @AfterClass
     public static void tearDownClass() {
+        School.DeleteTestDatabase(School.getTablename());
     }
 
     // TODO add test methods here.
@@ -57,11 +58,14 @@ public class CampusTest {
     @Before
     public void setup(){
         SUT = new Campus();
+        //SUT.setName(sutName);
+        //SUT.setSchool(TestSchool.getID());
     }
     
     @After
     public void teardownDatabase(){
         Campus.DeleteTestDatabase(Campus.getTablename());
+        //School.DeleteTestDatabase(School.getTablename());
         SUT = null;
     }
     
@@ -97,31 +101,78 @@ public class CampusTest {
         Assert.assertEquals(0, numberCampuses);
     }
     
-    //@Test
+    @Test
     public void CanSaveNewCampus(){
         SUT.setName(sutName);
         SUT.setSchool(TestSchool.getID());
+        int firstCount = 0;
+        int secondCount = 0;
+        try{
+            ConnectionManager manager = new ConnectionManager(mode);
+            manager.statement = manager.connection.createStatement();
+            String sqlString = "SELECT * FROM " + Campus.getTablename();
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while(manager.resultSet.next()){
+                firstCount = firstCount + 1;
+            }
+            SUT.Save(mode);
+            manager.resultSet = manager.statement.executeQuery(sqlString);
+            while(manager.resultSet.next()){
+                secondCount = secondCount + 1;
+            }
+            Assert.assertEquals(secondCount, firstCount+1);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         
     }
     
-    //@Test
+    @Test
     public void SaveIncreasesCountByOne(){
+        int campusCount = Campus.Count(mode,Campus.getTablename());
+        SUT.setName(sutName);
+        SUT.setSchool(TestSchool.getID());
+        SUT.Save(mode);
+        Assert.assertEquals(Campus.Count(mode,Campus.getTablename()),campusCount+1);
         
     }
     
-    //@Test
+    @Test
     public void UpdateKeepsCountStatic(){
+        SUT.setName(sutName);
+        SUT.setSchool(TestSchool.getID());
+        SUT.Save(mode);
+        int campusCount = Campus.Count(mode,Campus.getTablename());
+        SUT.Update(mode);
+        Assert.assertEquals(Campus.Count(mode,Campus.getTablename()), campusCount);
+        
         
     }
     
-    //@Test
+    
+    @Test
     public void CanRetreiveAllCampusesForSchool(){
-        
+        SUT.setName(sutName);
+        SUT.setSchool(TestSchool.getID());
+        SUT.Save("TEST_MODE");
+        ArrayList<Campus> all = Campus.GetAll("TEST_MODE");
+        //Assert.assertEquals(all.size(), User.Count("TEST_MODE"));
+        Assert.assertFalse(all.isEmpty());
     }
     
-    //@Test
+    
+    @Test
     public void CanUpdateExistingCampusName(){
-        
+        SUT.setName(sutName);
+        SUT.setSchool(TestSchool.getID());
+        SUT.Save(mode);
+        int id = SUT.getID();
+        String newSUTName = "newSUTName";
+        SUT.setName(newSUTName);
+        SUT.Update(mode);
+        SUT = null;
+        Campus newCampus = Campus.GetByID(id, mode);
+        Assert.assertEquals(newCampus.getName(),newSUTName);
     }
     
     

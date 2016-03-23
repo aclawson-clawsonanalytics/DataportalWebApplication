@@ -11,6 +11,8 @@ import Core.Database.ConnectionManager;
 import Core.Database.ISQLInterface;
 import Core.Database.SQLModel;
 
+import Core.ModelLayer.Campus;
+
 import java.sql.SQLException;
 
 /**
@@ -53,7 +55,7 @@ public class School extends SQLModel {
     public void Save(String mode){
         if (this.getID() == 0){
             if (this.IsValid()){
-                super.SetIDBySQL("TEST_MODE",School.getTablename());
+                super.SetIDBySQL(mode,School.getTablename());
                 String sqlString = "INSERT INTO SCHOOL (name)"
                         + "VALUES (?)";
                 try{
@@ -125,4 +127,13 @@ public class School extends SQLModel {
         return school;
     }
     
+    public ArrayList<Campus> CampusSet(String mode){
+        ArrayList<Campus> campusSet = new ArrayList<Campus>();
+        
+        return campusSet;
+    }
+    
+    public void AddCampus(Campus aCampus){
+        
+    }
 }

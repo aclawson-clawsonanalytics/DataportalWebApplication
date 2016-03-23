@@ -61,6 +61,87 @@ public class Campus extends SQLModel {
         return validationErrors;
     }
     
+    @Override
+    public void Save(String mode){
+        if (this.getID() == 0){
+            if (this.IsValid()){
+                super.SetIDBySQL(mode, Campus.getTablename());
+                String sqlString = "INSERT INTO CAMPUS (name,school_id)"
+                        + " VALUES(?,?)";
+                try{
+                    ConnectionManager manager = new ConnectionManager(mode);
+                    manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+                    manager.preparedStatement.setString(1, this.getName());
+                    manager.preparedStatement.setInt(2, this.getSchoolID());
+                    manager.preparedStatement.execute();
+                    manager.CloseResources();
+                } catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public static Campus GetByID(int id, String mode){
+        Campus campus = new Campus();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sql = "SELECT * FROM " + Campus.getTablename() + " WHERE id = " + Integer.toString(id);
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sql);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            if (manager.resultSet.next()){
+                campus.setID(manager.resultSet.getInt("id"));
+                campus.setName(manager.resultSet.getString("name"));
+                campus.setSchool(manager.resultSet.getInt("school_id"));
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return campus;
+    }
+    
+    public void Update(String mode){
+        if (this.getID() != 0){
+            if (this.IsValid()){
+                String sql = "UPDATE CAMPUS set name = ?, school_id = ?  WHERE id = ?";
+                ConnectionManager manager = new ConnectionManager(mode);
+                try{
+                    manager.preparedStatement = manager.connection.prepareStatement(sql);
+                    manager.preparedStatement.setString(1, this.getName());
+                    manager.preparedStatement.setInt(2,this.getSchoolID());
+                    manager.preparedStatement.setInt(3, this.getID());
+                    manager.preparedStatement.executeUpdate();
+                    manager.CloseResources();
+                    
+                }catch(SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+    }
+    
+    public static ArrayList<Campus> GetAll(String mode){
+        ArrayList allCampuses = new ArrayList<Campus>();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sql = "SELECT * FROM " + Campus.getTablename();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sql);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            while (manager.resultSet.next()){
+                Campus newCampus = new Campus();
+                newCampus.setID(manager.resultSet.getInt("id"));
+                newCampus.setName(manager.resultSet.getString("name"));
+                newCampus.setSchool(manager.resultSet.getInt("school_id"));
+                allCampuses.add(newCampus);
+            }
+            
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+        return allCampuses;
+    }
     
     
 }
