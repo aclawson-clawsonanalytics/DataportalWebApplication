@@ -16,6 +16,8 @@ public class Student extends SQLModel {
     private String firstname;
     private String lastname;
     private String gender;
+    private int gradelevel;
+    private int campusID;
     //private String firstname;
     
     public Student(){
@@ -54,6 +56,22 @@ public class Student extends SQLModel {
         return this.gender;
     }
     
+    public void setGradeLevel(int grade){
+        this.gradelevel = grade;
+    }
+    
+    public int getGradelevel(){
+        return this.gradelevel;
+    }
+    
+    public void setCampus(int id){
+        this.campusID = id;
+    }
+    
+    public int getCampus(){
+        return this.campusID;
+    }
+    
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();
@@ -66,10 +84,15 @@ public class Student extends SQLModel {
         
         if (this.getGender() == null || this.getGender() == ""){
             validationErrors.add("Student is missing a gender.");
-        }
-        if (!this.getGender().equals("Male") && !this.getGender().equals("Female")){
+        }else if (!this.getGender().equals("Male") && !this.getGender().equals("Female")){
             validationErrors.add("Gender must be Male or Female.");
         }
+        
+        if (this.getGradelevel() < 9 || this.getGradelevel() > 12){
+            validationErrors.add("Grade level must be between 9 and 12.");
+        }
+        
+        
         
         return validationErrors;
     }

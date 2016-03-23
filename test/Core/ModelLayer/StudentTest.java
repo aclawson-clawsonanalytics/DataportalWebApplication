@@ -31,6 +31,7 @@ public class StudentTest {
     public static String sutFirstname = "sutFirst";
     public static String sutLastname = "sutLast";
     public static String sutGender = "Male";
+    public static int sutGrade = 9;
     public StudentTest() {
     }
     
@@ -171,54 +172,42 @@ public class StudentTest {
         Assert.assertFalse(SUT.IsValid());
     }
     
-    //@Test
+    @Test
     public void CanSetGradeLevel(){
+        SUT.setGradeLevel(9);
+        Assert.assertEquals(SUT.getGradelevel(),9);
         
     }
     
-    //@Test
+    @Test
     public void InvalidGradeLevelReturnsMessage(){
-        
+        SUT.setGradeLevel(5);
+        Assert.assertTrue(SUT.GetValidationErrors().contains("Grade level must be between 9 and 12."));
     }
     
-    //@Test
+    @Test
     public void InvalidGradeLevelReturnsInvalid(){
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        SUT.setGradeLevel(5);
+        Assert.assertFalse(SUT.IsValid());
         
     }
    
-    //@Test
+    @Test
     public void ValidGradeLevelReturnsValid(){
-        
+        SUT.setFirstname(sutFirstname);
+        SUT.setLastname(sutLastname);
+        SUT.setGender(sutGender);
+        SUT.setGradeLevel(sutGrade);
+        Assert.assertTrue(SUT.IsValid());
     }
     
-    //@Test
+    @Test
     public void CanSetCampus(){
-        
-    }
-    
-    //@Test
-    public void UnsetCampusReturnsMessage(){
-        
-    }
-    
-    //@Test
-    public void UnsetCampusReturnsInvalid(){
-        
-    }
-    
-    //@Test
-    public void CampusIDMatchesExistingCampus(){
-        
-    }
-    
-    //@Test
-    public void InvalidCampusIDReturnsMessage(){
-        
-    }
-    
-    //@Test
-    public void InvalidCampusIDReturnsInvalid(){
-        
+        SUT.setCampus(TestCampus.getID());
+        Assert.assertEquals(SUT.getCampus(), TestCampus.getID());
     }
     
     
