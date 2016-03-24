@@ -10,10 +10,15 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.Assert;
 import static org.junit.Assert.*;
 
 import Core.Database.ConnectionManager;
 import Core.Database.Settings;
+
+import Core.ModelLayer.School;
+import Core.ModelLayer.Campus;
+import Core.ModelLayer.Student;
 
 import WoodcockJohnson.Reference.FormReference;
 import WoodcockJohnson.Models.BookletForm;
@@ -22,25 +27,53 @@ import WoodcockJohnson.Models.BookletForm;
  * @author andrewclawson
  */
 public class BookletFormTest {
+    public static String sutLabel;
+    public static BookletForm SUT;
+    public static String formLabel = "A";
+    public static String mode = "TEST_MODE";
+    public static School TestSchool;
+    public static Campus TestCampus;
+    public static Student TestStudent;
     
     public BookletFormTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
-        BookletForm SUT;
+        TestSchool = new School();
+        TestSchool.setName("testSchool");
+        TestSchool.Save(mode);
+        TestCampus = new Campus();
+        TestCampus.setName("testCampus");
+        TestCampus.setSchool(TestCampus.getID());
+        TestCampus.Save(mode);
+        TestStudent = new Student();
+        TestStudent.setFirstname("testFirst");
+        TestStudent.setLastname("testLast");
+        TestStudent.setCampus(TestCampus.GetID());
+        TestStudent.setGender("Male");
+        TestStudent.setGradeLevel(9);
+        TestStudent.Save(mode);
+        //SUT = new BookletForm();
     }
     
     @AfterClass
     public static void tearDownClass() {
+        BookletForm.DeleteTestDatabase(BookletForm.getTablename());
+        Student.DeleteTestDatabase(Student.getTablename());
+        Campus.DeleteTestDatabase(Campus.getTablename());
+        School.DeleteTestDatabase(School.getTablename());
+        
     }
     
     @Before
     public void setUp() {
+        SUT = new BookletForm();
     }
     
     @After
     public void tearDown() {
+        BookletForm.DeleteTestDatabase(BookletForm.getTablename());
     }
 
     // TODO add test methods here.
@@ -48,4 +81,8 @@ public class BookletFormTest {
     //
     // @Test
     // public void hello() {}
+    @Test
+    public void TablenameIsCorrect(){
+        Assert.assertEquals(BookletForm.getTablename(),"Form");
+    }
 }
