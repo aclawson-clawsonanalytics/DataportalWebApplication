@@ -7,8 +7,9 @@ package WoodcockJohnson.Models;
 import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
 
-import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ArrayList;
+import java.sql.Date;
 
 
 /**
@@ -25,7 +26,7 @@ public class BookletForm extends SQLModel {
     
     public BookletForm(){
         setTablename("Form");
-        setReferenceTablename("FormReference");
+        referenceTablename = "FormReference";
         super.setID(0);
     }
     
@@ -38,7 +39,27 @@ public class BookletForm extends SQLModel {
     }
     
     public static void setReferenceTablename(String string){
-        
+        tablename = string;
+    }
+    
+    public static String getReferenceTablename(){
+        return referenceTablename;
+    }
+    
+    public void setStudentID(int id){
+        studentID = id;
+    }
+    
+    public int getStudentID(){
+        return this.studentID;
+    }
+    
+    public void setAssessmentDate(Date date){
+        this.assessmentDate = date;
+    }
+    
+    public Date getAssessmentDate(){
+        return this.assessmentDate;
     }
     
 }

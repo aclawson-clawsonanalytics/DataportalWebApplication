@@ -13,6 +13,8 @@ import org.junit.Test;
 import org.junit.Assert;
 import static org.junit.Assert.*;
 
+import java.sql.Date;
+
 import Core.Database.ConnectionManager;
 import Core.Database.Settings;
 
@@ -34,6 +36,7 @@ public class BookletFormTest {
     public static School TestSchool;
     public static Campus TestCampus;
     public static Student TestStudent;
+    public static Date sutDate;
     
     public BookletFormTest() {
     }
@@ -82,7 +85,38 @@ public class BookletFormTest {
     // @Test
     // public void hello() {}
     @Test
+    public void TablenameIsNotNull(){
+        Assert.assertNotNull(BookletForm.getTablename());
+    }
+    @Test
     public void TablenameIsCorrect(){
         Assert.assertEquals(BookletForm.getTablename(),"Form");
     }
+    
+    @Test
+    public void ReferenceTablenameIsNotNull(){
+        Assert.assertNotNull(BookletForm.getReferenceTablename());
+        
+    }
+    
+    @Test
+    public void ReferenceTablenameIsCorrect(){
+        Assert.assertEquals(BookletForm.getReferenceTablename(),"FormReference");
+    }
+    
+    @Test
+    public void CanSetStudentID(){
+        SUT.setStudentID(TestStudent.getID());
+        Assert.assertEquals(SUT.getStudentID(),TestStudent.getID());
+    }
+    
+    @Test
+    public void CanSetAssessmentDate(){
+        sutDate = new Date(System.currentTimeMillis());
+        SUT.setAssessmentDate(sutDate);
+        Assert.assertEquals(SUT.getAssessmentDate(),sutDate);
+        
+    }
+    
+    
 }
