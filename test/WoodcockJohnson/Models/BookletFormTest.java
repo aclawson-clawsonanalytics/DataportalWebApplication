@@ -111,11 +111,56 @@ public class BookletFormTest {
     }
     
     @Test
+    public void StudentExistsInDatabase(){
+        SUT.setStudentID(TestStudent.getID());
+        Student retrievedStudent = Student.GetByID(SUT.getStudentID(), mode);
+        Assert.assertNotNull(retrievedStudent);
+    }
+    
+    @Test
     public void CanSetAssessmentDate(){
         sutDate = new Date(System.currentTimeMillis());
         SUT.setAssessmentDate(sutDate);
         Assert.assertEquals(SUT.getAssessmentDate(),sutDate);
         
+    }
+    
+    @Test
+    public void CanSetReferenceID(){
+        int testID = 1;
+        SUT.setReferenceID(testID);
+        Assert.assertEquals(SUT.getReferenceID(),testID);
+    }
+    @Test
+    public void AReferenceIDExists(){
+        int testID = 1;
+        SUT.setReferenceID(testID);
+        //FormReference reference = FormReference.GetReferenceByID(testID, "PRODUCTION");
+        Assert.assertNotNull(FormReference.GetReferenceByID(SUT.getReferenceID(),"PRODUCTION"));
+        
+        
+    }
+    
+    @Test
+    public void BReferenceIDExists(){
+        int testID = 2;
+        SUT.setReferenceID(testID);
+        Assert.assertNotNull(FormReference.GetReferenceByID(SUT.getReferenceID(), "PRODUCTION"));
+    }
+    
+    @Test
+    public void NonExistentReferenceIDContainsMessage(){
+        int falseReferenceID = 0;
+        SUT.setReferenceID(falseReferenceID);
+        Assert.assertTrue(SUT.GetValidationErrors().contains("Invalid reference ID."));
+        
+    }
+    
+    @Test
+    public void ReferenceStudentExists(){
+        SUT.setStudentID(TestStudent.getID());
+        Student studentCheck = Student.GetByID(SUT.getStudentID(), mode);
+        Assert.assertNotNull(studentCheck);
     }
     
     

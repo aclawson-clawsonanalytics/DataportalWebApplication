@@ -6,11 +6,13 @@
 package WoodcockJohnson.Models;
 import Core.Database.ConnectionManager;
 import Core.Database.SQLModel;
+import Core.ModelLayer.Student;
 
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.sql.Date;
 
+import WoodcockJohnson.Reference.FormReference;
 
 /**
  *
@@ -61,5 +63,32 @@ public class BookletForm extends SQLModel {
     public Date getAssessmentDate(){
         return this.assessmentDate;
     }
+    
+    public void setReferenceID(int id){
+        this.referenceID = id;
+    }
+    
+    public int getReferenceID(){
+        return this.referenceID;
+    }
+    
+    @Override
+    public ArrayList<String> GetValidationErrors(){
+        ArrayList<String> validationErrors = new ArrayList<String>();
+        try{
+            FormReference formReference = FormReference.GetReferenceByID(this.getReferenceID(),
+                    BookletForm.getReferenceTablename());
+            if (formReference == null){
+                validationErrors.add("Invalid reference ID.");
+            }
+        }catch (NullPointerException e){
+            validationErrors.add("Invalid reference ID.");
+        }
+        
+        return validationErrors;
+    }
+    
+    
+    
     
 }
