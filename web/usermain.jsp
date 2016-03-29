@@ -21,6 +21,35 @@
     <body>
         <h1>DSS Dataportal</h1>
         <h2>User Main Hub</h2>
+        <div class="row" style="height:100px">
+            
+            <b>User Email: </b> <bean:write name="LoginForm" property="email" />
+        </div>
+        <div class="row" style="height:400px">
+            <div class="large-4 columns">
+                <b>Woodcock Johnson</b><br><br>
+                    <html:form action="/wjmain"><html:submit value="Data"></html:submit></html:form>
+                    <html:form><html:submit value="Analysis"></html:submit></html:form>
+                    <html:form><html:submit value="Reports"></html:submit></html:form>
+                       
+            </div>
+            <div class="large-4 columns">
+                <b>Attendance</b><br><br>
+                    <html:form><html:submit value="Data"></html:submit></html:form>
+                    <html:form><html:submit value="Analysis"></html:submit></html:form>
+                    <html:form><html:submit value="Reports"></html:submit></html:form>
+            </div>
+            <div class="large-4 columns">
+                <b>Risk Factors</b><br><br>
+                    <html:form><html:submit value="Data"></html:submit></html:form>
+                    <html:form><html:submit value="Analysis"></html:submit></html:form>
+                    <html:form><html:submit value="Reports"></html:submit></html:form>
+            </div>
+        </div>
+        <div class="row">
+            <html:form action="/logout"><html:submit value="Logout"></html:submit></html:form>
+        </div>
+        <!--
         <table border="0">
             <tbody>
                 <tr>
@@ -127,6 +156,7 @@
                 </tr>
             </tbody>
         </table>
+                -->
 
     </body>
 </html>
