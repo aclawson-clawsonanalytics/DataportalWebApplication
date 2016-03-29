@@ -11,9 +11,7 @@ import Core.ModelLayer.Student;
 import java.util.GregorianCalendar;
 import java.util.ArrayList;
 import java.sql.Date;
-import java.sql.SQLException;
 
-import Core.Database.ConnectionManager;
 import WoodcockJohnson.Reference.FormReference;
 
 /**
@@ -88,23 +86,6 @@ public class BookletForm extends SQLModel {
         }
         
         return validationErrors;
-    }
-    
-    @Override
-    public void Save(String mode){
-        ConnectionManager manager = new ConnectionManager(mode);
-        String sqlString = "INSERT INTO " + BookletForm.getTablename() + "(reference_id,student_id,assessmentDate)"
-                + " VALUES (?,?,?)";
-        try{
-            manager.preparedStatement = manager.connection.prepareStatement(sqlString);
-            manager.preparedStatement.setInt(1,this.getReferenceID());
-            manager.preparedStatement.setInt(2, this.getStudentID());
-            manager.preparedStatement.setDate(3, this.getAssessmentDate());
-            manager.preparedStatement.execute();
-            manager.CloseResources();
-        }catch(SQLException e){
-            e.printStackTrace();
-        }
     }
     
     
