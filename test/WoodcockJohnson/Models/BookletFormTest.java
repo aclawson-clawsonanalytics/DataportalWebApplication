@@ -29,7 +29,7 @@ import WoodcockJohnson.Models.BookletForm;
  * @author andrewclawson
  */
 public class BookletFormTest {
-    public static String sutLabel;
+    public static String sutLabel = "testLabel";
     public static BookletForm SUT;
     public static String formLabel = "A";
     public static String mode = "TEST_MODE";
@@ -37,6 +37,7 @@ public class BookletFormTest {
     public static Campus TestCampus;
     public static Student TestStudent;
     public static Date sutDate;
+    
     
     public BookletFormTest() {
     }
@@ -48,12 +49,12 @@ public class BookletFormTest {
         TestSchool.Save(mode);
         TestCampus = new Campus();
         TestCampus.setName("testCampus");
-        TestCampus.setSchool(TestCampus.getID());
+        TestCampus.setSchool(TestSchool.getID());
         TestCampus.Save(mode);
         TestStudent = new Student();
         TestStudent.setFirstname("testFirst");
         TestStudent.setLastname("testLast");
-        TestStudent.setCampus(TestCampus.GetID());
+        TestStudent.setCampus(TestCampus.getID());
         TestStudent.setGender("Male");
         TestStudent.setGradeLevel(9);
         TestStudent.Save(mode);
@@ -163,5 +164,14 @@ public class BookletFormTest {
         Assert.assertNotNull(studentCheck);
     }
     
+    @Test
+    public void CanSaveBookletForm(){
+        SUT.setReferenceID(1);
+        SUT.setStudentID(TestStudent.getID());
+        SUT.setAssessmentDate(sutDate);
+        int BookletCount = BookletForm.Count(mode,BookletForm.getTablename());
+        SUT.Save(mode);
+        Assert.assertEquals(BookletCount+1, BookletForm.Count(mode,BookletForm.getTablename()));
+    }
     
 }
