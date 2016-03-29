@@ -1,0 +1,13 @@
+.wide-dropdown
+{
+  max-width:400px;
+
+}
+
+.wide-dropdown li div
+{
+  width: 33%;
+  float: left;
+  padding: 2px;
+  box-sizing:
+}

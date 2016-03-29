@@ -14,6 +14,7 @@
       xmlns=:h="http://java.sun.com/jsf/html">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <title>User Main</title>
     </head>
