@@ -36,12 +36,83 @@
                 </tr>
                 <tr>
                     <td>
-                        <html:form action="/wjmain">
-                            <html:submit value="Woodcock Johnson Analysis"/>
-                        </html:form>
+                        <b>Woodcock Johnson Test Analysis</b>
+                        <table border="0">
+                            <tr>
+                                <td>
+                                <html:form action="/wjmain">
+                                    <html:submit value="WJIII Data"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <html:form>
+                                    <html:submit value="WJIII Analysis"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <html:form>
+                                    <html:submit value="WJIII Reports"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                        </table>
                     </td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <b>Attendance Analysis</b>
+                        <table border ="0">
+                            <tr>
+                                <td>
+                                <html:form>
+                                    <html:submit value="Attendance Data"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <html:form>
+                                    <html:submit value="Attendance Analysis"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <html:form>
+                                    <html:submit value="Attendance Reports"/>
+                                </html:form>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <b>Risk Factor Analysis</b>
+                        <table border="0">
+                        <tr>
+                            <td>
+                                <html:form>
+                                    <html:submit value="Risk Factor Data"/>
+                                </html:form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <html:form>
+                                    <html:submit value="Risk Factor Analysis"/>
+                                </html:form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <html:form>
+                                    <html:submit value="Risk Factor Reports"/>
+                                </html:form>
+                            </td>
+                        </tr>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td>
