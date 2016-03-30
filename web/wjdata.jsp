@@ -7,15 +7,25 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="foundation/css/foundation.css">
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
         <title>Woodcock Johnson III</title>
     </head>
     <body>
         <h1>Denver Street School Dataportal</h1>
         <h2>Woodcock Johnson III Assessment Analysis</h2>
+        <h2>Data Homepage</h2>
+        
+        <div class="row">
+            <div class="large-6 columns">
+                
+            </div>
+        </div>
+        
     </body>
 </html>
