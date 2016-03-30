@@ -15,7 +15,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author andrewclawson
  */
-public class WoodcockJohnsonMainAction extends org.apache.struts.action.Action {
+public class WoodcockJohnsonDataAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     //private static final String SUCCESS = "success";

@@ -30,7 +30,7 @@
         <action name="LogoutForm" path="/logout" scope="request" type="com.myapp.struts.Actions.LogoutAction" validate="false">
             <forward name="logout" path="/login.jsp"/>
         </action>
-        <action name="WoodcockJohnsonDataForm" path="/wjdata" scope="request" type="com.myapp.struts.Actions.WoodcockJohnsonMainAction" validate="false">
+        <action name="WoodcockJohnsonDataForm" path="/wjdata" scope="request" type="com.myapp.struts.Actions.WoodcockJohnsonDataAction" validate="false">
             <forward name="display_wjdata" path="/wjdata.jsp"/>
         </action>
         
