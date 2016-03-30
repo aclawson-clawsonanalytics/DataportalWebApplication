@@ -146,6 +146,29 @@ public class Student extends SQLModel {
         }
         return student;
     }
+    
+    public static ArrayList<Student> GetAll(String mode){
+        ArrayList<Student> allStudents = new ArrayList<Student>();
+        ConnectionManager manager = new ConnectionManager(mode);
+        String sqlString = "SELECT * FROM " + School.getTablename();
+        try{
+            manager.preparedStatement = manager.connection.prepareStatement(sqlString);
+            manager.resultSet = manager.preparedStatement.executeQuery();
+            while(manager.resultSet.next()){
+                Student aStudent = new Student();
+                aStudent.setID(manager.resultSet.getInt("id"));
+                aStudent.setFirstname(manager.resultSet.getString("firstname"));
+                aStudent.setLastname(manager.resultSet.getString("lastname"));
+                aStudent.setGender(manager.resultSet.getString("gender"));
+                aStudent.setGradeLevel(manager.resultSet.getInt("gradelevel"));
+                aStudent.setCampus(manager.resultSet.getInt("campus_id"));
+                allStudents.add(aStudent);
+            }
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+        return allStudents;
+    }
     @Override
     public ArrayList<String> GetValidationErrors(){
         ArrayList<String> validationErrors = new ArrayList();

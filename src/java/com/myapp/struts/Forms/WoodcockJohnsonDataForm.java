@@ -5,12 +5,14 @@
  */
 package com.myapp.struts.Forms;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
+import Core.ModelLayer.*;
 /**
  *
  * @author andrewclawson
@@ -18,7 +20,9 @@ import org.apache.struts.action.ActionMessage;
 public class WoodcockJohnsonDataForm extends org.apache.struts.action.ActionForm {
     
     private String name;
-    
+    private ArrayList<School> schoolList;
+    private ArrayList<Campus> campusList;
+    private ArrayList<Student> studentList;
     private int number;
 
     /**
@@ -55,6 +59,9 @@ public class WoodcockJohnsonDataForm extends org.apache.struts.action.ActionForm
     public WoodcockJohnsonDataForm() {
         super();
         // TODO Auto-generated constructor stub
+        schoolList = School.GetAll("PRODUCTION");
+        campusList = Campus.GetAll("PRODUCTION");
+        studentList = Student.GetAll("PRODUCTION");
     }
 
     /**
