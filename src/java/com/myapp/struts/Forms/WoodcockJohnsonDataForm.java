@@ -15,7 +15,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author andrewclawson
  */
-public class WoodcockJohnsonMainForm extends org.apache.struts.action.ActionForm {
+public class WoodcockJohnsonDataForm extends org.apache.struts.action.ActionForm {
     
     private String name;
     
@@ -52,7 +52,7 @@ public class WoodcockJohnsonMainForm extends org.apache.struts.action.ActionForm
     /**
      *
      */
-    public WoodcockJohnsonMainForm() {
+    public WoodcockJohnsonDataForm() {
         super();
         // TODO Auto-generated constructor stub
     }

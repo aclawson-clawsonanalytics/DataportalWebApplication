@@ -19,7 +19,7 @@ public class WoodcockJohnsonMainAction extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     //private static final String SUCCESS = "success";
-    private static final String DISPLAY_WJMAIN = "display_wjmain";
+    private static final String DISPLAY_WJDATA = "display_wjdata";
 
     /**
      * This is the action called from the Struts framework.
@@ -36,6 +36,6 @@ public class WoodcockJohnsonMainAction extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        return mapping.findForward(DISPLAY_WJMAIN);
+        return mapping.findForward(DISPLAY_WJDATA);
     }
 }

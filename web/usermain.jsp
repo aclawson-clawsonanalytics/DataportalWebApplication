@@ -28,7 +28,7 @@
         <div class="row" style="height:400px">
             <div class="large-4 columns">
                 <b>Woodcock Johnson</b><br><br>
-                    <html:form action="/wjmain"><html:submit value="Data"></html:submit></html:form>
+                    <html:form action="/wjdata"><html:submit value="Data"></html:submit></html:form>
                     <html:form><html:submit value="Analysis"></html:submit></html:form>
                     <html:form><html:submit value="Reports"></html:submit></html:form>
                        
@@ -70,7 +70,7 @@
                         <table border="0">
                             <tr>
                                 <td>
-                                <html:form action="/wjmain">
+                                <html:form action="/wjdata">
                                     <html:submit value="WJIII Data"/>
                                 </html:form>
                                 </td>
