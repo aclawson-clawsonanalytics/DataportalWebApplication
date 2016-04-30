@@ -1,0 +1,14 @@
+branch-defaults:
+  DeploymentBranch:
+    environment: Default-Environment
+  Development1.0:
+    environment: Default-Environment
+global:
+  application_name: My First Elastic Beanstalk Application
+  default_ec2_keyname: starterKeyPair
+  default_platform: 64bit Amazon Linux 2015.09 v2.0.8 running Java 8
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git
+deploy:
+  artifact: dist/DataportalWebApplication.war
