@@ -40,13 +40,16 @@
         <property name="mappings">
             <props>
                 <prop key="login.htm">LoginController</prop>
+                <prop key="dashboard.htm">DashboardController</prop>
             </props>
         </property>
     </bean>
 
     <bean name="LoginController"
           class="com.clawsonanalytics.DSS.Dataportal.Controllers.LoginController"/>
-
+    <bean name="DashboardController"
+        class="com.clawsonanalytics.DSS.Dataportal.Controllers.DashboardController"/>
+    
     <!--
     The index controller.
     -->

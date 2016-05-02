@@ -5,12 +5,22 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="foundation-6.2.1-complete/css/foundation.css"/>
 <!DOCTYPE html>
 Enter login credentials below.
-<form>
-    <b>Email: </b><input type="text"/><br>
-    <b>Password: </b><input type="password"/><br>
-    <input type="submit" value="Login"/>
-    
-</form>
-<br> <br>
+<form action="${pageContext.request.contextPath}/dashboard.htm">
+      <div class="row column log-in-form">
+        <h4 class="text-center">Log in with you email account</h4>
+        <label>Email
+          <input type="text" placeholder="somebody@example.com">
+        </label>
+        <label>Password
+          <input type="password" placeholder="Password">
+        </label>
+        <input id="show-password" type="checkbox"><label for="show-password">Show password</label>
+        <!--<p><a type="submit" class="button expanded">Log In</a></p>-->
+        <p><input type="submit" value="Log In"/></p>
+        <p class="text-center"><a href="#">Forgot your password?</a></p>   
+      </div>
+    </form>
+

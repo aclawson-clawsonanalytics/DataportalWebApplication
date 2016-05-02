@@ -9,7 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="foundation/css/foundation.css"/>
+        <!--<link rel="stylesheet" href="foundation/css/foundation.css"/>-->
+        <link rel="stylesheet" href="foundation-6.2.1-complete/css/foundation.css"/>
+        
         <link rel="stylesheet" href="/WEB-INF/styles/loginStyles.css"/>
         <title>Denver Street School</title>
     </head>
@@ -23,14 +25,14 @@
         </div>
         </div>
             <!-- Content -->
-            <div class="row" style="height:200px">
+            <div class="row">
                 <div class="medium-6 large-centered columns">
                     <jsp:include page="/WEB-INF/views/login/login_content.jsp"/>
                 </div>
             </div>
                 
             <!-- Footer -->
-            <div class="row" style="padding:20px">
+            <div class="row">
                 <div class="medium-6 large-centered columns">
                     <jsp:include page="/WEB-INF/fragments/footer.jsp"/>
                 </div>
